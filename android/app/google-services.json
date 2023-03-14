@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "691615349760",
+    "project_id": "ppmo-tbc",
+    "storage_bucket": "ppmo-tbc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691615349760:android:ee51785234a202c46f2ce5",
+        "android_client_info": {
+          "package_name": "com.alfiandiafan.apkppmotbc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691615349760-ue60vjpoq13nrv8o8909630qrf3510e5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alfiandiafan.apkppmotbc",
+            "certificate_hash": "37cfd83fee7cfc8e065981d87afbba234a264cfe"
+          }
+        },
+        {
+          "client_id": "691615349760-7d0p8832fdoukoome9krmap394r0vn23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0B3_9ufh9UWzRt5sCuaAp0WSvMRP6AsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691615349760-7d0p8832fdoukoome9krmap394r0vn23.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
