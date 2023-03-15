@@ -640,7 +640,7 @@ const TambahAlarm = () => {
                   fontSize: 80,
                   // textAlignVertical: "center",
                   fontFamily: "Poppins-Bold",
-                  paddingTop: 25,
+                  // paddingTop: 25,
                   color: COLORS.primary,
                   borderRadius: 10,
                 }}

@@ -11,11 +11,12 @@ import {
   Dimensions,
   TextInput,
   BackHandler,
+  ImageBackground,
 } from "react-native";
 import React, { useRef, useEffect, useState } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 // import { PieChart } from "react-native-gifted-charts";
-import PieChart from "react-native-expo-pie-chart";
+// import PieChart from "react-native-expo-pie-chart";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
@@ -29,6 +30,12 @@ const AkunScreen = () => {
 
   const [loading, setLoading] = useState(true);
   const [loadingDua, setLoadingDua] = useState(false);
+
+  const pieData = [
+    { value: 70, color: "#177AD5" },
+    { value: 30, color: "lightgray" },
+  ];
+
   const data = [
     {
       key: "First Data",
@@ -131,11 +138,6 @@ const AkunScreen = () => {
       AsyncStorage.clear();
     }, 2000);
   };
-  const pieData = [
-    { value: 54, color: "#177AD5", text: "54%" },
-    { value: 40, color: "#79D2DE", text: "30%" },
-    { value: 20, color: "#ED6665", text: "26%" },
-  ];
 
   const getPresentase = async () => {
     const userData = JSON.parse(await AsyncStorage.getItem("userData"));
@@ -311,6 +313,205 @@ const AkunScreen = () => {
               Biodata
             </Text>
           </View>
+
+          {/* <View style={styles.box_style}>
+            <View
+              style={{ flexDirection: "row", height: "100%", width: "100%" }}
+            >
+              <View
+                style={{
+                  // backgroundColor: "grey",
+                  width: 65,
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: COLORS.primary,
+                    width: "60%",
+                    height: "60%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 5,
+                  }}
+                >
+                  <Image
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: COLORS.white,
+                    }}
+                    source={require("../assets/icon/nama_fill.png")}
+                  />
+                </View>
+              </View>
+              <View
+                style={{
+                  // backgroundColor: "yellow",
+                  width: "70%",
+                  height: "100%",
+                  padding: 10,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Bold",
+                    color: COLORS.primary,
+                    fontSize: 16,
+                  }}
+                >
+                  Nama Lengkap
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Regular",
+                    color: "grey",
+                  }}
+                >
+                  {userSession[0].nama}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.box_style}>
+            <View
+              style={{ flexDirection: "row", height: "100%", width: "100%" }}
+            >
+              <View
+                style={{
+                  // backgroundColor: "grey",
+                  width: 65,
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: COLORS.primary,
+                    width: "60%",
+                    height: "60%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 5,
+                  }}
+                >
+                  <Image
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: COLORS.white,
+                    }}
+                    source={require("../assets/icon/at_fill.png")}
+                  />
+                </View>
+              </View>
+              <View
+                style={{
+                  // backgroundColor: "yellow",
+                  width: "70%",
+                  height: "100%",
+                  padding: 10,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Bold",
+                    color: COLORS.primary,
+                    fontSize: 16,
+                  }}
+                >
+                  Username
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Regular",
+                    color: "grey",
+                  }}
+                >
+                  {userSession[0].username}
+                </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.box_style}>
+            <View
+              style={{ flexDirection: "row", height: "100%", width: "100%" }}
+            >
+              <View
+                style={{
+                  // backgroundColor: "grey",
+                  width: 65,
+                  height: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: COLORS.primary,
+                    width: "60%",
+                    height: "60%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 5,
+                  }}
+                >
+                  <Image
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: COLORS.white,
+                    }}
+                    source={require("../assets/icon/fase_pasien.png")}
+                  />
+                </View>
+              </View>
+              <View
+                style={{
+                  // backgroundColor: "yellow",
+                  width: "70%",
+                  height: "100%",
+                  padding: 10,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Bold",
+                    color: COLORS.primary,
+                    fontSize: 16,
+                  }}
+                >
+                  Fase Pengobatan
+                </Text>
+                <Text
+                  style={{
+                    fontFamily: "Poppins-Regular",
+                    color: "grey",
+                  }}
+                >
+                  {userSession[0].fase}
+                </Text>
+              </View>
+            </View>
+          </View> */}
+
+          {/* <PieChart
+            donut
+            innerRadius={80}
+            data={pieData}
+            centerLabelComponent={() => {
+              return <Text style={{ fontSize: 30 }}>70%</Text>;
+            }}
+          /> */}
+
           <View style={styles.box}>
             <View style={{ flexDirection: "row", width: "100%" }}>
               <View style={styles.box_image}>
@@ -427,6 +628,35 @@ const AkunScreen = () => {
               <Text style={styles.persen_text}>Extend</Text>
             </View>
           </View>
+
+          {/* <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+
+              // backgroundColor: "blue",
+              // paddingVertical: 5,
+              // paddingVertical: 15,
+            }}
+          >
+            <View style={{ width: "30%", height: 130 }}>
+              <ImageBackground
+                style={{
+                  flex: 1,
+                  height: "100%",
+                  width: "100%",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  backgroundColor: "grey",
+                }}
+                resizeMode="cover"
+                source={require("./../assets/icon/bg_persen.png")}
+              >
+                <Text>80%</Text>
+              </ImageBackground>
+            </View>
+          </View> */}
 
           <View style={styles.box_keluar}>
             <TouchableOpacity
@@ -655,5 +885,19 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.9,
     // shadowRadius: 3,
     // elevation: 5,
+  },
+  box_style: {
+    backgroundColor: "#FFFFFF",
+    width: width - 15,
+    // paddingHorizontal: "2%",
+    marginTop: 5,
+    height: 65,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 10,
   },
 });

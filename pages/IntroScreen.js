@@ -55,7 +55,8 @@ const IntroScreen = () => {
   const onStart = async () => {
     try {
       await AsyncStorage.setItem("intro", "1");
-      navigation.navigate("LoginScreen");
+      // navigation.navigate("LoginScreen");
+      navigation.navigate("Settings");
     } catch (e) {
       // saving error
     }

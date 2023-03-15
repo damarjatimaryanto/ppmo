@@ -36,6 +36,8 @@ import TestScreen from "./pages/alarmdesain";
 import TestScreen_2 from "./pages/alarmdesain_2";
 import TestScreen_3 from "./pages/alarmdesain_3";
 import Alarm from "./pages/Alarm";
+import Settings from "./pages/Settings";
+
 const COLORS = { primary: "#1E319D", white: "#FFFFFF" };
 
 const width = Dimensions.get("screen").width;
@@ -190,6 +192,15 @@ const App = () => {
         <Tab.Screen
           name="IntroScreen"
           component={IntroScreen}
+          options={{
+            headerShown: false,
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={Settings}
           options={{
             headerShown: false,
             tabBarStyle: { display: "none" },

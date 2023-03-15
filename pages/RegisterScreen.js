@@ -228,11 +228,23 @@ const RegisterScreen = () => {
             position: "absolute",
             justifyContent: "center",
             alignItems: "center",
-            height: "100%",
-            width: "100%",
+            height: 60,
+            width: "40%",
+            left: "30%",
+            top: "40%",
+            backgroundColor: "white",
+            borderRadius: 10,
+            borderColor: "#ddd",
+            borderBottomWidth: 0,
+            shadowColor: "#000000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.9,
+            shadowRadius: 3,
+            elevation: 5,
           }}
         >
           <ActivityIndicator size="large" color={COLORS.primary} />
+          <Text style={{ fontFamily: "Poppins-Regular" }}>Loading . . .</Text>
         </View>
       </Modal>
 
@@ -255,30 +267,6 @@ const RegisterScreen = () => {
               data={dataKat}
               renderItem={renderItem}
               keyExtractor={(item) => item.id_kategori_detail}
-            />
-          </View>
-        </View>
-      </Modal>
-
-      {/* Modal FASE PENGOBATAN */}
-      <Modal
-        isVisible={isModalVisible_2}
-        onBackdropPress={() => setModalVisible_2(false)}
-        animationOutTiming={1000}
-        animationInTiming={1000}
-      >
-        <View style={{ alignItems: "center" }}>
-          <View
-            style={{
-              flexDirection: "row",
-              width: width * 0.6,
-              borderRadius: 10,
-            }}
-          >
-            <FlatList
-              data={dataFase}
-              renderItem={renderFase}
-              keyExtractor={(item) => item.id_fase_detail}
             />
           </View>
         </View>

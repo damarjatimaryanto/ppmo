@@ -40,35 +40,34 @@ const red = "#C74B4C";
 const grey = "#5C5F68";
 const blue_icon = "#9695C0";
 const AlarmScreen = () => {
-
   const navigation = useNavigation();
   const dataHari = [
     {
-      key: 1,
+      key: 0,
       hari: "Min",
     },
     {
-      key: 2,
+      key: 1,
       hari: "Sen",
     },
     {
-      key: 3,
+      key: 2,
       hari: "Sel",
     },
     {
-      key: 4,
+      key: 3,
       hari: "Rab",
     },
     {
-      key: 5,
+      key: 4,
       hari: "Kam",
     },
     {
-      key: 6,
+      key: 5,
       hari: "Jum",
     },
     {
-      key: 7,
+      key: 6,
       hari: "Sab",
     },
   ]; // data hari untuk loop pada form
@@ -245,13 +244,14 @@ const AlarmScreen = () => {
               // lanjutan
             } else if (resp.id_fase == "2") {
               dataHari.map((item, index) => {
-                if (resp.hari_satu == item.key) {
+                // if (resp.hari_satu)
+                if (resp.hari_satu == dataHari[index].key) {
                   AsyncStorage.setItem("labelHariSatu", item.hari);
                 }
-                if (resp.hari_dua == item.key) {
+                if (resp.hari_dua == dataHari[index].key) {
                   AsyncStorage.setItem("labelHariDua", item.hari);
                 }
-                if (resp.hari_tiga == item.key) {
+                if (resp.hari_tiga == dataHari[index].key) {
                   AsyncStorage.setItem("labelHariTiga", item.hari);
                 }
               });
@@ -289,13 +289,14 @@ const AlarmScreen = () => {
               // extend
             } else {
               dataHari.map((item, index) => {
-                if (resp.hari_satu == item.key) {
+                if (resp.hari_satu == dataHari[index].key) {
                   AsyncStorage.setItem("labelHariSatu", item.hari);
                 }
-                if (resp.hari_dua == item.key) {
+                if (resp.hari_dua == dataHari[index].key) {
                   AsyncStorage.setItem("labelHariDua", item.hari);
+                  // console.warn("hari sesuai");
                 }
-                if (resp.hari_tiga == item.key) {
+                if (resp.hari_tiga == dataHari[index].key) {
                   AsyncStorage.setItem("labelHariTiga", item.hari);
                 }
               });
@@ -362,7 +363,6 @@ const AlarmScreen = () => {
         setToday(resp);
       });
   };
-
 
   useEffect(() => {
     if (lastNotificationResponse) {
@@ -507,6 +507,24 @@ const AlarmScreen = () => {
     setLabelHariDua(labelDua);
     setLabelHariTiga(labelTiga);
   };
+
+  const LabelHari = async () => {
+    return (
+      <View>
+        <Text
+          style={{
+            fontFamily: "Poppins-Regular",
+            fontSize: 16,
+            color: COLORS.primary,
+            // backgroundColor: "grey",
+            marginHorizontal: 5,
+          }}
+        >
+          asdasds
+        </Text>
+      </View>
+    );
+  };
   return (
     <ScrollView
       style={[styles.container]}
@@ -559,8 +577,8 @@ const AlarmScreen = () => {
           animationInTiming={2000}
           animationIn={"fadeIn"}
           animationOut={"fadeOut"}
-        // deviceHeight={height}
-        // deviceWidth={width}
+          // deviceHeight={height}
+          // deviceWidth={width}
         >
           <View
             style={{
@@ -886,7 +904,6 @@ const AlarmScreen = () => {
                   Fase Insentif
                 </Text>
               )}
-
               {data[0].id_fase == "2" && (
                 <Text
                   style={{
@@ -903,7 +920,6 @@ const AlarmScreen = () => {
                   Fase Lanjutan
                 </Text>
               )}
-
               {data[0].id_fase == "3" && (
                 <Text
                   style={{
@@ -920,8 +936,7 @@ const AlarmScreen = () => {
                   Fase Extend
                 </Text>
               )}
-
-              {data[0].id_fase == "1" && (
+              {/* {data[0].id_fase == "1" && (
                 <Text
                   style={{
                     fontFamily: "Poppins-Regular",
@@ -933,34 +948,17 @@ const AlarmScreen = () => {
                 >
                   Setiap Hari
                 </Text>
-              )}
-              {data[0].id_fase == "2" && (
-                <Text
-                  style={{
-                    fontFamily: "Poppins-Regular",
-                    fontSize: 16,
-                    color: COLORS.primary,
-                    // backgroundColor: "grey",
-                    marginHorizontal: 5,
-                  }}
-                >
-                  {labelHariSatu} , {labelHariDua} , {labelHariTiga}
-                </Text>
-              )}
+              )} */}
 
-              {data[0].id_fase == "3" && (
-                <Text
-                  style={{
-                    fontFamily: "Poppins-Regular",
-                    fontSize: 16,
-                    color: COLORS.primary,
-                    // backgroundColor: "grey",
-                    marginHorizontal: 5,
-                  }}
-                >
-                  {labelHariSatu} , {labelHariDua} , {labelHariTiga}
-                </Text>
-              )}
+              {/* {data[0].id_fase != "1" && <LabelHari />} */}
+              {/* {
+                data[0].id_fase != "1" && {
+                  if (data[0].hari_satu) {
+
+                  }
+                }
+                // {data[0].hari_satu}, {data[0].hari_dua}, {data[0].hari_tiga} 
+              {/* } */}
             </View>
           </View>
         )}

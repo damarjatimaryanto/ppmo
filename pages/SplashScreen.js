@@ -13,6 +13,8 @@ import React, { useRef, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import PushNotification from "react-native-push-notification";
+import * as Battery from "expo-battery";
+
 const COLORS = { primary: "#1E319D", white: "#FFFFFF" };
 const SplashScreen = () => {
   const navigation = useNavigation();
@@ -31,6 +33,7 @@ const SplashScreen = () => {
       },
     });
   };
+
   useEffect(() => {
     configNotification();
     fadeIn();
@@ -65,15 +68,20 @@ const SplashScreen = () => {
   const navig = async () => {
     const loggedIn = await AsyncStorage.getItem("loggedIn");
     const intro = await AsyncStorage.getItem("intro");
+    const opt = await Battery.isBatteryOptimizationEnabledAsync();
+    // if (opt == true) {
+    //   //   console.log("dibatasi");
+    //   navigation.navigate("LoginScreen");
+    // }
     setTimeout(async () => {
-      if (intro == 1 && loggedIn == 1) {
+      if (intro == 1 && loggedIn == 1 && opt == false) {
         navigation.navigate("AlarmScreen");
-      } else if (intro != 1 && loggedIn != 1) {
+      } else if (intro != 1 && loggedIn != 1 && opt == false) {
         navigation.navigate("IntroScreen");
-      } else if (intro == 1 && loggedIn != 1) {
+      } else if (intro == 1 && loggedIn != 1 && opt == false) {
         navigation.navigate("LoginScreen");
-      } else {
-        navigation.navigate("IntroScreen");
+      } else if (opt == false) {
+        navigation.navigate("Settings");
       }
     }, 3000);
   };
