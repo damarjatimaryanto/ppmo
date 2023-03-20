@@ -45,14 +45,14 @@ const addExtend = async (
       start: newDate,
       end: newEndDate,
       lama_pengobatan: lamaPengobatan,
-      hour: hrs,
-      minute: min,
+      hour: hours,
+      minute: minutes,
     }),
   })
     .then((res) => res.json())
     .then(async (resp) => {
       if (resp == 1) {
-        pushSchedule(s, d, t, lamaPengobatan, jam, fase);
+        pushSchedule(s, d, t, lamaPengobatan, jam, fase, hours, minutes);
         // hariAlarm.map((d) => {
         //   pushScheduled(hrs, min, d);
         // });

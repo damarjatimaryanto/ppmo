@@ -3,7 +3,7 @@ import React from "react";
 import PushNotification, { Importance } from "react-native-push-notification";
 import moment from "moment";
 
-const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase) => {
+const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes) => {
   const dateNow = moment().format("YYYY-MM-DD HH:mm");
   const startDate = moment().isoWeekday(satu).format("YYYY-MM-DD");
   const endDate = moment(startDate)
@@ -14,9 +14,9 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase) => {
   const secondDate = moment().isoWeekday(dua).format("YYYY-MM-DD");
   const thirdDate = moment().isoWeekday(tiga).format("YYYY-MM-DD");
 
-  const tglSatu = moment(firstDate + " " + jam).format("YYYY-MM-DD HH:mm");
-  const tglDua = moment(secondDate + " " + jam).format("YYYY-MM-DD HH:mm");
-  const tglTiga = moment(thirdDate + " " + jam).format("YYYY-MM-DD HH:mm");
+  const tglSatu = moment(firstDate + " " + hours + ":" + minutes).format("YYYY-MM-DD HH:mm");
+  const tglDua = moment(secondDate + " " + hours + ":" + minutes).format("YYYY-MM-DD HH:mm");
+  const tglTiga = moment(thirdDate + " " + hours + ":" + minutes).format("YYYY-MM-DD HH:mm");
 
   PushNotification.createChannel(
     {
@@ -39,21 +39,21 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase) => {
       const addSatu = moment(
         moment(tglSatu, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
-      const convertedSatu = moment(addSatu + " " + jam).format(
+      const convertedSatu = moment(addSatu + " " + hours + ":" + minutes).format(
         "YYYY-MM-DD HH:mm"
       );
 
       const addDua = moment(moment(tglDua, "YYYY-MM-DD").add(7, "days")).format(
         "YYYY-MM-DD"
       );
-      const convertedDua = moment(addDua + " " + jam).format(
+      const convertedDua = moment(addDua + " " + hours + ":" + minutes).format(
         "YYYY-MM-DD HH:mm"
       );
 
       const addTiga = moment(
         moment(tglTiga, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
-      const convertedTiga = moment(addTiga + " " + jam).format(
+      const convertedTiga = moment(addTiga + " " + hours + ":" + minutes).format(
         "YYYY-MM-DD HH:mm"
       );
 
@@ -99,14 +99,14 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase) => {
       const addSatu = moment(
         moment(tglSatu, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
-      const convertedSatu = moment(addSatu + " " + jam).format(
+      const convertedSatu = moment(addSatu + " " + hours + ":" + minutes).format(
         "YYYY-MM-DD HH:mm"
       );
 
       const addDua = moment(moment(tglDua, "YYYY-MM-DD").add(7, "days")).format(
         "YYYY-MM-DD"
       );
-      const convertedDua = moment(addDua + " " + jam).format(
+      const convertedDua = moment(addDua + " " + hours + ":" + minutes).format(
         "YYYY-MM-DD HH:mm"
       );
 
@@ -150,7 +150,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase) => {
       const addSatu = moment(
         moment(tglSatu, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
-      const convertedSatu = moment(addSatu + " " + jam).format(
+      const convertedSatu = moment(addSatu + " " + hours + ":" + minutes).format(
         "YYYY-MM-DD HH:mm"
       );
 

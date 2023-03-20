@@ -47,8 +47,8 @@ const addLanjutan = async (
       fase: fase,
       start: newDate,
       end: newEndDate,
-      hour: hrs,
-      minute: min,
+      hour: hours,
+      minute: minutes,
     }),
   })
     .then((res) => res.json())
@@ -62,7 +62,7 @@ const addLanjutan = async (
         }
 
         ToastAndroid.show("Alarm Berhasil Ditambahkan!", ToastAndroid.SHORT);
-        pushSchedule(s, d, t, lamaPengobatan, jam, fase);
+        pushSchedule(s, d, t, lamaPengobatan, jam, fase, hours, minutes);
         // hariAlarm.map((d) => {
         //   pushScheduled(hrs, min, d);
         // });

@@ -74,15 +74,32 @@ const SplashScreen = () => {
     //   navigation.navigate("LoginScreen");
     // }
     setTimeout(async () => {
-      if (intro == 1 && loggedIn == 1 && opt == false) {
-        navigation.navigate("AlarmScreen");
-      } else if (intro != 1 && loggedIn != 1 && opt == false) {
-        navigation.navigate("IntroScreen");
-      } else if (intro == 1 && loggedIn != 1 && opt == false) {
-        navigation.navigate("LoginScreen");
-      } else if (opt == false) {
+
+      // jika belum klik intro -> intro
+      if (intro != 1) {
+        navigation.navigate('IntroScreen');
+      }
+      // jika sudah klik intro dan blm beri izin baterai -> settings
+      else if (intro == 1 && opt == true) {
         navigation.navigate("Settings");
       }
+      // jika sudah klik intro dan sudah beri izin baterai dan belum login -> login
+      else if (intro == 1 && opt == false && loggedIn != 1) {
+        navigation.navigate("LoginScreen");
+      }
+      // jika sudah klik intro, sudah beri izin baterai, sudah login -> alarmscreen 
+      else if (intro == 1 && opt == false && loggedIn == 1) {
+        navigation.navigate("AlarmScreen");
+      }
+      // if (intro == 1 && loggedIn == 1 && opt == false) {
+      //   navigation.navigate("AlarmScreen");
+      // } else if (intro != 1 && loggedIn != 1 && opt == false) {
+      //   navigation.navigate("IntroScreen");
+      // } else if (intro == 1 && loggedIn != 1 && opt == false) {
+      //   navigation.navigate("LoginScreen");
+      // } else if (opt == false) {
+      //   navigation.navigate("Settings");
+      // }
     }, 3000);
   };
 

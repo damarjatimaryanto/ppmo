@@ -28,8 +28,13 @@ import addInsentif from "./function/addInsentif";
 import addExtend from "./function/addExtend";
 import addLanjutan from "./function/addLanjutan";
 import { SafeAreaView } from "react-native";
-import pushNotification from "./function/pushNotification";
-import pushScheduled from "./function/pushScheduled";
+// import pushNotification from "./function/pushNotification";
+// import pushScheduled from "./function/pushScheduled";
+
+import pushNotification from "./alarm/pushNotification";
+import pushSchedule from "./alarm/pushSchedule";
+
+
 import PushNotification from "react-native-push-notification";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
@@ -233,10 +238,14 @@ const AlarmScreen = () => {
                 hari: hari,
                 startDate: startDate,
                 endDate: endDate,
+                hour: hrs,
+                minutes: min
               });
 
               if (alarmSession == null) {
-                pushNotification(hrs, min);
+                pushNotification(lamaPengobatan, hrs, min);
+
+                // pushNotification(hrs, min);
 
                 AsyncStorage.setItem("alarmSession", "1");
               }
@@ -266,23 +275,29 @@ const AlarmScreen = () => {
                 hari_tiga: resp.hari_tiga,
                 startDate: startDate,
                 endDate: endDate,
+                hour: hrs,
+                minutes: min
               });
+
+
               if (alarmSession == null) {
-                pushScheduled(
-                  parseFloat(resp.hour),
-                  parseFloat(resp.minute),
-                  parseFloat(resp.hari_satu)
-                );
-                pushScheduled(
-                  parseFloat(resp.hour),
-                  parseFloat(resp.minute),
-                  parseFloat(resp.hari_dua)
-                );
-                pushScheduled(
-                  parseFloat(resp.hour),
-                  parseFloat(resp.minute),
-                  parseFloat(resp.hari_tiga)
-                );
+                pushSchedule(resp.hari_satu, resp.hari_dua, resp.hari_tiga, lamaPengobatan, jam, fase, hrs, min);
+
+                // pushScheduled(
+                //   parseFloat(resp.hour),
+                //   parseFloat(resp.minute),
+                //   parseFloat(resp.hari_satu)
+                // );
+                // pushScheduled(
+                //   parseFloat(resp.hour),
+                //   parseFloat(resp.minute),
+                //   parseFloat(resp.hari_dua)
+                // );
+                // pushScheduled(
+                //   parseFloat(resp.hour),
+                //   parseFloat(resp.minute),
+                //   parseFloat(resp.hari_tiga)
+                // );
 
                 AsyncStorage.setItem("alarmSession", "1");
               }
@@ -313,24 +328,29 @@ const AlarmScreen = () => {
                 endDate: endDate,
                 lama_pengobatan: resp.lama_pengobatan,
                 fase: resp.fase,
+                hour: hrs,
+                minutes: min
               });
 
+
               if (alarmSession == null) {
-                pushScheduled(
-                  parseFloat(resp.hour),
-                  parseFloat(resp.minute),
-                  parseFloat(resp.hari_satu)
-                );
-                pushScheduled(
-                  parseFloat(resp.hour),
-                  parseFloat(resp.minute),
-                  parseFloat(resp.hari_dua)
-                );
-                pushScheduled(
-                  parseFloat(resp.hour),
-                  parseFloat(resp.minute),
-                  parseFloat(resp.hari_tiga)
-                );
+                pushSchedule(resp.hari_satu, resp.hari_dua, resp.hari_tiga, lamaPengobatan, jam, fase, hrs, min);
+
+                // pushScheduled(
+                //   parseFloat(resp.hour),
+                //   parseFloat(resp.minute),
+                //   parseFloat(resp.hari_satu)
+                // );
+                // pushScheduled(
+                //   parseFloat(resp.hour),
+                //   parseFloat(resp.minute),
+                //   parseFloat(resp.hari_dua)
+                // );
+                // pushScheduled(
+                //   parseFloat(resp.hour),
+                //   parseFloat(resp.minute),
+                //   parseFloat(resp.hari_tiga)
+                // );
 
                 AsyncStorage.setItem("alarmSession", "1");
               }
@@ -577,8 +597,8 @@ const AlarmScreen = () => {
           animationInTiming={2000}
           animationIn={"fadeIn"}
           animationOut={"fadeOut"}
-          // deviceHeight={height}
-          // deviceWidth={width}
+        // deviceHeight={height}
+        // deviceWidth={width}
         >
           <View
             style={{

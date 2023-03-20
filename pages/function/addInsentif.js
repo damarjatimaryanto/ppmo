@@ -8,8 +8,6 @@ import pushNotification from "../alarm/pushNotification";
 const addInsentif = async (hours, minutes, lamaPengobatan, hari, jam, fase) => {
   const userData = JSON.parse(await AsyncStorage.getItem("userData"));
 
-  const hrs = parseFloat(hours);
-  const min = parseFloat(minutes);
   const startDate = new Date();
   const newDate = moment(startDate).format("YYYY-MM-DD");
   const endDate = moment(startDate).add(lamaPengobatan, "days").toDate();
@@ -28,15 +26,15 @@ const addInsentif = async (hours, minutes, lamaPengobatan, hari, jam, fase) => {
       fase: fase,
       start: newDate,
       end: newEndDate,
-      hour: hrs,
-      minute: min,
+      hour: hours,
+      minute: minutes,
     }),
   })
     .then((res) => res.json())
     .then(async (resp) => {
       if (resp == "1") {
         // pushNotification(hrs, min);
-        pushNotification(lamaPengobatan, jam);
+        pushNotification(lamaPengobatan, hours, minutes);
         AsyncStorage.setItem("alarmSession", "1");
         try {
           await AsyncStorage.removeItem("selisihSession");
