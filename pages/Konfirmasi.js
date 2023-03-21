@@ -39,6 +39,7 @@ const Konfirmasi = () => {
   const [refresh, setRefresh] = useState(Math.random()); // refresh bukan refreshcontrol
 
   const [loading, setLoading] = useState(true);
+  const [loadingDua, setLoadingDua] = useState(false);
   const [userSession, setUserSession] = useState([
     {
       uid: "",
@@ -158,14 +159,14 @@ const Konfirmasi = () => {
     })
       .then((res) => res.json())
       .then((resp) => {
-        setLoading(true);
+        setLoadingDua(true);
         setTimeout(() => {
           if (resp == "1") {
-            setLoading(false);
+            setLoadingDua(false);
             ToastAndroid.show("Konfirmasi Berhasil!", ToastAndroid.SHORT);
             navigation.navigate("AlarmScreen");
           } else {
-            setLoading(false);
+            setLoadingDua(false);
             ToastAndroid.show("Konfirmasi Gagal!", ToastAndroid.SHORT);
           }
         }, 3000);
@@ -195,13 +196,41 @@ const Konfirmasi = () => {
       backAction
     );
     return () => backHandler.remove();
-  }, []);
+  }, [userSession]);
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
 
       {loading == true && (
+        // <Modal animationType="fade" transparent={true} visible={loading}>
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 60,
+            width: "40%",
+            left: "30%",
+            top: "40%",
+            backgroundColor: "white",
+            borderRadius: 10,
+            borderColor: "#ddd",
+            borderBottomWidth: 0,
+            shadowColor: "#000000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.9,
+            shadowRadius: 3,
+            elevation: 5,
+          }}
+        >
+          <ActivityIndicator size="large" color={COLORS.primary} />
+          <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
+        </View>
+        // </Modal>
+      )}
+
+      {loadingDua == true && (
         // <Modal animationType="fade" transparent={true} visible={loading}>
         <View
           style={{
