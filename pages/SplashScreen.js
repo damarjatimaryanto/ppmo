@@ -29,7 +29,11 @@ const SplashScreen = () => {
       },
 
       onAction: function (notification) {
-        console.log("asd");
+        // console.log("asd");
+        if (notification.userInteraction) {
+          navigation.navigate("Konfirmasi");
+          // Handle notification click
+        }
       },
     });
   };
@@ -74,10 +78,9 @@ const SplashScreen = () => {
     //   navigation.navigate("LoginScreen");
     // }
     setTimeout(async () => {
-
       // jika belum klik intro -> intro
       if (intro != 1) {
-        navigation.navigate('IntroScreen');
+        navigation.navigate("IntroScreen");
       }
       // jika sudah klik intro dan blm beri izin baterai -> settings
       else if (intro == 1 && opt == true) {
@@ -87,7 +90,7 @@ const SplashScreen = () => {
       else if (intro == 1 && opt == false && loggedIn != 1) {
         navigation.navigate("LoginScreen");
       }
-      // jika sudah klik intro, sudah beri izin baterai, sudah login -> alarmscreen 
+      // jika sudah klik intro, sudah beri izin baterai, sudah login -> alarmscreen
       else if (intro == 1 && opt == false && loggedIn == 1) {
         navigation.navigate("AlarmScreen");
       }

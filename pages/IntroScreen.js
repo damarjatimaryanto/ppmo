@@ -70,7 +70,7 @@ const IntroScreen = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
+      <StatusBar backgroundColor={COLORS.primary} />
       <View style={styles.logo_container}>
         <Image
           style={{ width: 150, height: 150 }}

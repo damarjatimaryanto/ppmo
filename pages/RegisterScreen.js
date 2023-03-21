@@ -312,7 +312,7 @@ const RegisterScreen = () => {
           <View style={{ width: "15%", alignItems: "center" }}>
             <Image
               style={styles.icon_style}
-              source={require("./../assets/icon/person_fill.png")}
+              source={require("./../assets/icon/at_fill.png")}
             />
           </View>
           <View style={{ width: "85%" }}>

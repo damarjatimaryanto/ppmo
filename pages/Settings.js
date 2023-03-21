@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  BackHandler,
 } from "react-native";
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -53,12 +54,12 @@ const Settings = () => {
   const navigation = useNavigation();
   const onCek = async () => {
     const opt = await Battery.isBatteryOptimizationEnabledAsync();
+    console.log(opt);
     if (opt == false) {
       setBattery(true);
       navigation.navigate("LoginScreen");
     }
   };
-
 
   const onSetting = async () => {
     // startActivityAsync(ActivityAction.IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
@@ -70,25 +71,35 @@ const Settings = () => {
     const loggedIn = await AsyncStorage.getItem("loggedIn");
 
     if (loggedIn != 1) {
-      navigation.navigate('LoginScreen')
+      navigation.navigate("LoginScreen");
     } else {
-      navigation.navigate('AlarmScreen')
+      navigation.navigate("AlarmScreen");
     }
-  }
+  };
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
 
-      <View style={{ alignItems: "center" }}>
+      <View style={{ alignItems: "center", marginBottom: 50 }}>
         <Image
           style={{
             width: 100,
             height: 100,
             tintColor: COLORS.primary,
-            marginBottom: 50,
           }}
           source={require("../assets/icon/warning.png")}
         />
+        <Text
+          style={{
+            fontFamily: "Poppins-Medium",
+            fontSize: 25,
+            color: COLORS.primary,
+            //   textAlign: "center",
+            //   paddingHorizontal: 20,
+          }}
+        >
+          PERINGATAN !
+        </Text>
       </View>
       <Text
         style={{
@@ -158,9 +169,20 @@ const Settings = () => {
             source={require("../assets/icon/batre.jpeg")}
           />
         </View>
-        <View style={{ alignItems: 'flex-end' }}>
-          <TouchableOpacity style={{ width: '30%', paddingVertical: 10, alignItems: 'flex-end' }} onPress={onSkip}>
-            <Text style={{ fontFamily: "Poppins-Regular" }}>Lewati</Text>
+        <View style={{ alignItems: "flex-end" }}>
+          <TouchableOpacity
+            style={{
+              width: "30%",
+              paddingVertical: 10,
+              alignItems: "flex-end",
+            }}
+            onPress={onSkip}
+          >
+            <Text
+              style={{ fontFamily: "Poppins-Medium", color: COLORS.primary }}
+            >
+              Lewati
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -178,7 +200,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "white",
     paddingHorizontal: "10%",
-    paddingTop: "30%",
+    paddingTop: "10%",
   },
   btn: {
     backgroundColor: COLORS.primary,

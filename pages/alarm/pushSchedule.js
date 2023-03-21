@@ -3,7 +3,16 @@ import React from "react";
 import PushNotification, { Importance } from "react-native-push-notification";
 import moment from "moment";
 
-const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes) => {
+const pushSchedule = (
+  satu,
+  dua,
+  tiga,
+  lamaPengobatan,
+  jam,
+  fase,
+  hours,
+  minutes
+) => {
   const dateNow = moment().format("YYYY-MM-DD HH:mm");
   const startDate = moment().isoWeekday(satu).format("YYYY-MM-DD");
   const endDate = moment(startDate)
@@ -14,9 +23,15 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
   const secondDate = moment().isoWeekday(dua).format("YYYY-MM-DD");
   const thirdDate = moment().isoWeekday(tiga).format("YYYY-MM-DD");
 
-  const tglSatu = moment(firstDate + " " + hours + ":" + minutes).format("YYYY-MM-DD HH:mm");
-  const tglDua = moment(secondDate + " " + hours + ":" + minutes).format("YYYY-MM-DD HH:mm");
-  const tglTiga = moment(thirdDate + " " + hours + ":" + minutes).format("YYYY-MM-DD HH:mm");
+  const tglSatu = moment(firstDate + " " + hours + ":" + minutes).format(
+    "YYYY-MM-DD HH:mm"
+  );
+  const tglDua = moment(secondDate + " " + hours + ":" + minutes).format(
+    "YYYY-MM-DD HH:mm"
+  );
+  const tglTiga = moment(thirdDate + " " + hours + ":" + minutes).format(
+    "YYYY-MM-DD HH:mm"
+  );
 
   PushNotification.createChannel(
     {
@@ -39,9 +54,9 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
       const addSatu = moment(
         moment(tglSatu, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
-      const convertedSatu = moment(addSatu + " " + hours + ":" + minutes).format(
-        "YYYY-MM-DD HH:mm"
-      );
+      const convertedSatu = moment(
+        addSatu + " " + hours + ":" + minutes
+      ).format("YYYY-MM-DD HH:mm");
 
       const addDua = moment(moment(tglDua, "YYYY-MM-DD").add(7, "days")).format(
         "YYYY-MM-DD"
@@ -53,9 +68,9 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
       const addTiga = moment(
         moment(tglTiga, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
-      const convertedTiga = moment(addTiga + " " + hours + ":" + minutes).format(
-        "YYYY-MM-DD HH:mm"
-      );
+      const convertedTiga = moment(
+        addTiga + " " + hours + ":" + minutes
+      ).format("YYYY-MM-DD HH:mm");
 
       // convert satu
       PushNotification.localNotificationSchedule({
@@ -66,7 +81,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
       // convert dua
       PushNotification.localNotificationSchedule({
@@ -77,7 +92,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
       // convert tiga
       PushNotification.localNotificationSchedule({
@@ -88,7 +103,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
     }
     // jika tglsatu dan tgldua sebelum tgl skrg
@@ -99,9 +114,9 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
       const addSatu = moment(
         moment(tglSatu, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
-      const convertedSatu = moment(addSatu + " " + hours + ":" + minutes).format(
-        "YYYY-MM-DD HH:mm"
-      );
+      const convertedSatu = moment(
+        addSatu + " " + hours + ":" + minutes
+      ).format("YYYY-MM-DD HH:mm");
 
       const addDua = moment(moment(tglDua, "YYYY-MM-DD").add(7, "days")).format(
         "YYYY-MM-DD"
@@ -119,7 +134,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
       // convert dua
       PushNotification.localNotificationSchedule({
@@ -130,7 +145,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
 
       // tiga
@@ -142,7 +157,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
     }
     // jika tglsatu dan tgldua dan tgltiga sebelum tgl skrg
@@ -150,9 +165,9 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
       const addSatu = moment(
         moment(tglSatu, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
-      const convertedSatu = moment(addSatu + " " + hours + ":" + minutes).format(
-        "YYYY-MM-DD HH:mm"
-      );
+      const convertedSatu = moment(
+        addSatu + " " + hours + ":" + minutes
+      ).format("YYYY-MM-DD HH:mm");
 
       // convert satu
       PushNotification.localNotificationSchedule({
@@ -163,7 +178,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
 
       // dua
@@ -175,7 +190,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
       // tiga
       PushNotification.localNotificationSchedule({
@@ -186,7 +201,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
     }
     // jika ketiganya sesudah tgl skrg
@@ -200,7 +215,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
       // dua
       PushNotification.localNotificationSchedule({
@@ -211,7 +226,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
       // tiga
       PushNotification.localNotificationSchedule({
@@ -222,7 +237,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
-        actions: ["Konfirmasi"],
+        // actions: ["Konfirmasi"],
       });
     }
   } else {
@@ -234,7 +249,7 @@ const pushSchedule = (satu, dua, tiga, lamaPengobatan, jam, fase, hours, minutes
       allowWhileIdle: false,
       repeatTime: 7,
       repeatType: "day",
-      actions: ["Konfirmasi"],
+      // actions: ["Konfirmasi"],
     });
   }
 };

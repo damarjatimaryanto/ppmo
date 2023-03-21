@@ -4,10 +4,12 @@ import PushNotification from "react-native-push-notification";
 import moment from "moment";
 const pushNotification = (lamaPengobatan, hours, minutes) => {
   const now = moment().format("YYYY-MM-DD");
-  const dateNow = moment(now + " " + hours + ':' + minutes).format("YYYY-MM-DD HH:mm");
+  const dateNow = moment(now + " " + hours + ":" + minutes).format(
+    "YYYY-MM-DD HH:mm"
+  );
   const addDate = moment(dateNow).add(1, "day").format("YYYY-MM-DD HH:mm");
-  const curDate = moment().format('YYYY-MM-DD HH:mm');
-  // jika tgl + detik ini lebih dari jam alarm, maka set alarm untuk esok hari 
+  const curDate = moment().format("YYYY-MM-DD HH:mm");
+  // jika tgl + detik ini lebih dari jam alarm, maka set alarm untuk esok hari
   PushNotification.createChannel(
     {
       channelId: "ppmo-tbc",
@@ -29,7 +31,7 @@ const pushNotification = (lamaPengobatan, hours, minutes) => {
       allowWhileIdle: true,
       repeatTime: 1,
       repeatType: "day",
-      actions: ["Konfirmasi"],
+      // actions: ["Konfirmasi"],
     });
   }
   //jika tgl + detik ini kurang dari jam alarm, maka set alarm hari ini jug
@@ -43,7 +45,7 @@ const pushNotification = (lamaPengobatan, hours, minutes) => {
       allowWhileIdle: true,
       repeatTime: 1,
       repeatType: "day",
-      actions: ["Konfirmasi"],
+      // actions: ["Konfirmasi"],
     });
   }
 };

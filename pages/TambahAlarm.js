@@ -556,9 +556,7 @@ const TambahAlarm = () => {
             >
               Jam
             </Text>
-            <View
-              style={styles.alarm_set_style}
-            >
+            <View style={styles.alarm_set_style}>
               <TextInput
                 style={{
                   width: "80%",
@@ -592,9 +590,7 @@ const TambahAlarm = () => {
             >
               Menit
             </Text>
-            <View
-              style={styles.alarm_set_style}
-            >
+            <View style={styles.alarm_set_style}>
               <TextInput
                 style={{
                   width: "80%",
@@ -847,25 +843,54 @@ const TambahAlarm = () => {
             const tiga = hariAlarm[2];
 
             // jika semua data kosong
-            if (fase == null && hari == null && lamaPengobatan == null && hours == null && minutes == null && hariAlarm.length < 3) {
+            if (
+              fase == null &&
+              hari == null &&
+              lamaPengobatan == null &&
+              hours == null &&
+              minutes == null &&
+              hariAlarm.length < 3
+            ) {
               ToastAndroid.show(
                 "Mohon lengkapi data pada form!",
                 ToastAndroid.SHORT
               );
               // jika salah satu data kosong dan fase bukan 1 -> ini agar ketika user blm memilih hari sebanyak tiga kali muncul peringatan
-            } else if (fase == null || hari == null || lamaPengobatan == null || hours == null || minutes == null || hariAlarm.length < 3 && fase != 1) {
+            } else if (
+              fase == null ||
+              hari == null ||
+              lamaPengobatan == null ||
+              hours == null ||
+              minutes == null ||
+              (hariAlarm.length < 3 && fase != 1)
+            ) {
               ToastAndroid.show(
                 "Mohon lengkapi data pada form!",
                 ToastAndroid.SHORT
               );
               // jika semua data lengkap dan fase = 1
-            } else if (fase != null && hari != null && lamaPengobatan != null && hours != null && minutes != null && fase == 1) {
+            } else if (
+              fase != null &&
+              hari != null &&
+              lamaPengobatan != null &&
+              hours != null &&
+              minutes != null &&
+              fase == 1
+            ) {
               // pushNotification(lamaPengobatan, hours, minutes, jam);
               addInsentif(hours, minutes, lamaPengobatan, hari, jam, fase);
               navigation.navigate("AlarmScreen");
 
               // jika semua datalengkap, hari alarm berjumlah 3 dan fase bukan 1
-            } else if (fase != null && hari != null && lamaPengobatan != null && hours != null && minutes != null && fase != 1 && hariAlarm.length == 3) {
+            } else if (
+              fase != null &&
+              hari != null &&
+              lamaPengobatan != null &&
+              hours != null &&
+              minutes != null &&
+              fase != 1 &&
+              hariAlarm.length == 3
+            ) {
               if (fase == 2) {
                 addLanjutan(
                   hours,
@@ -880,7 +905,6 @@ const TambahAlarm = () => {
                   tiga
                 );
                 navigation.navigate("AlarmScreen");
-
               } else if (fase == 3) {
                 addExtend(
                   hours,
@@ -925,22 +949,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginHorizontal: 6,
     borderRadius: 50,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 1,
   },
   boxhari_grey: {
-    backgroundColor: "#F2F3FC",
+    backgroundColor: COLORS.white,
     width: 33,
     height: 33,
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 6,
     borderRadius: 50,
-    borderColor: COLORS.primary,
-    borderWidth: 1,
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    // elevation: 10,
+    // borderColor: COLORS.primary,
+    // borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 1,
   },
   submitBtn: {
     backgroundColor: COLORS.primary,
@@ -957,7 +986,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 10,
+    elevation: 3,
     // top: 100,
   },
   btnText: {
@@ -973,7 +1002,7 @@ const styles = StyleSheet.create({
     // textAlign: "center",
   },
   fase_style: {
-    backgroundColor: COLORS.blue_bg,
+    backgroundColor: COLORS.white,
     width: "100%",
     height: 40,
     borderRadius: 5,
@@ -984,7 +1013,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 10,
+    elevation: 3,
     paddingHorizontal: "2%",
   },
   fase_img_container: {
@@ -1009,7 +1038,7 @@ const styles = StyleSheet.create({
   },
   harike_container: {
     flexDirection: "row",
-    backgroundColor: COLORS.blue_bg,
+    backgroundColor: COLORS.white,
     width: "100%",
     height: 40,
     borderRadius: 5,
@@ -1019,7 +1048,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 10,
+    elevation: 3,
   },
   input_harike: {
     fontFamily: "Poppins-SemiBold",
@@ -1032,7 +1061,7 @@ const styles = StyleSheet.create({
   },
   lamahari_style: {
     flexDirection: "row",
-    backgroundColor: COLORS.blue_bg,
+    backgroundColor: COLORS.white,
     width: "100%",
     height: 40,
     borderRadius: 5,
@@ -1042,7 +1071,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 10,
+    elevation: 3,
   },
   lamahari_input: {
     fontFamily: "Poppins-SemiBold",
@@ -1054,7 +1083,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   alarm_set_style: {
-    backgroundColor: COLORS.blue_bg,
+    backgroundColor: COLORS.white,
     width: "100%",
     height: 150,
     borderRadius: 10,
@@ -1064,7 +1093,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 10,
+    elevation: 3,
     paddingTop: 10,
   },
   alarm_set_text: {

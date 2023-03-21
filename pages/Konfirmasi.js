@@ -12,6 +12,7 @@ import {
   Button,
   StatusBar,
   AppRegistry,
+  ToastAndroid,
   Dimensions,
   SafeAreaView,
   BackHandler,
@@ -37,8 +38,7 @@ const Konfirmasi = () => {
   const navigation = useNavigation();
   const [refresh, setRefresh] = useState(Math.random()); // refresh bukan refreshcontrol
 
-  const [loading, setLoading] = useState(false);
-  const [loadingDua, setLoadingDua] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [userSession, setUserSession] = useState([
     {
       uid: "",
@@ -158,27 +158,17 @@ const Konfirmasi = () => {
     })
       .then((res) => res.json())
       .then((resp) => {
-        setLoadingDua(true);
+        setLoading(true);
         setTimeout(() => {
           if (resp == "1") {
-            Alert.alert("", "Konfirmasi Berhasil", [
-              {
-                text: "OK",
-                onPress: () => {
-                  navigation.navigate("AlarmScreen");
-                },
-              },
-            ]);
+            setLoading(false);
+            ToastAndroid.show("Konfirmasi Berhasil!", ToastAndroid.SHORT);
+            navigation.navigate("AlarmScreen");
           } else {
-            Alert.alert("", "Konfirmasi Gagal", [
-              {
-                text: "OK",
-              },
-            ]);
-
-            setLoadingDua(false);
+            setLoading(false);
+            ToastAndroid.show("Konfirmasi Gagal!", ToastAndroid.SHORT);
           }
-        }, 2000);
+        }, 3000);
       });
   };
   useEffect(() => {
@@ -186,8 +176,8 @@ const Konfirmasi = () => {
     getHari();
     getObat();
     setTimeout(() => {
-      setLoadingDua(false);
-    }, 2000);
+      setLoading(false);
+    }, 3000);
 
     const backAction = () => {
       Alert.alert("", "Apakah Anda yakin ingin keluar dari aplikasi?", [
@@ -205,73 +195,38 @@ const Konfirmasi = () => {
       backAction
     );
     return () => backHandler.remove();
-  }, [userSession]);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
+
       {loading == true && (
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={loading}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModal(false);
+        // <Modal animationType="fade" transparent={true} visible={loading}>
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 60,
+            width: "40%",
+            left: "30%",
+            top: "40%",
+            backgroundColor: "white",
+            borderRadius: 10,
+            borderColor: "#ddd",
+            borderBottomWidth: 0,
+            shadowColor: "#000000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.9,
+            shadowRadius: 3,
+            elevation: 5,
           }}
         >
-          <View
-            style={{
-              position: "absolute",
-              justifyContent: "center",
-              alignItems: "center",
-              height: 60,
-              width: "40%",
-              left: "30%",
-              top: "40%",
-              backgroundColor: "white",
-              borderRadius: 10,
-              borderColor: "#ddd",
-              borderBottomWidth: 0,
-              shadowColor: "#000000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.9,
-              shadowRadius: 3,
-              elevation: 5,
-            }}
-          >
-            <ActivityIndicator size="large" color={COLORS.primary} />
-            <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
-          </View>
-        </Modal>
-      )}
-
-      {loadingDua == true && (
-        <Modal animationType="fade" transparent={true} visible={loadingDua}>
-          <View
-            style={{
-              position: "absolute",
-              justifyContent: "center",
-              alignItems: "center",
-              height: 60,
-              width: "40%",
-              left: "30%",
-              top: "40%",
-              backgroundColor: "white",
-              borderRadius: 10,
-              borderColor: "#ddd",
-              borderBottomWidth: 0,
-              shadowColor: "#000000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.9,
-              shadowRadius: 3,
-              elevation: 5,
-            }}
-          >
-            <ActivityIndicator size="large" color={COLORS.primary} />
-            <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
-          </View>
-        </Modal>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+          <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
+        </View>
+        // </Modal>
       )}
       {/* <View
         style={{

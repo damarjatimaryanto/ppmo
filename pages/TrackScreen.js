@@ -222,7 +222,7 @@ const TrackScreen = () => {
             shadowOpacity: 0.3,
             shadowRadius: 0.4,
 
-            elevation: 5,
+            elevation: 3,
             paddingTop: 15,
             // height: 700,
             // borderWidth: 4,
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 0.4,
 
-    elevation: 5,
+    elevation: 2,
   },
   judul_style: {
     // backgroundColor: 'green',

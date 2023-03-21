@@ -22,7 +22,10 @@
       },
       "package": "com.alfiandiafan.apkppmotbc",
       "useNextNotificationsApi": true,
-      "permissions": ["RECEIVE_BOOT_COMPLETED", "SCHEDULE_EXACT_ALARM"]
+      "permissions": [
+        "RECEIVE_BOOT_COMPLETED",
+        "SCHEDULE_EXACT_ALARM"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,13 +36,15 @@
         {
           "icon": "./assets/icon.png",
           "color": "#ffffff",
-          "sounds": ["./mysound.wav"]
+          "sounds": [
+            "./mysound.wav"
+          ]
         }
       ]
     ],
     "extra": {
       "eas": {
-        "projectId": "b7311bab-1d40-43af-915a-ccd3efacd0a3"
+        "projectId": "e774fd32-c3da-425a-85ae-15598a558e0c"
       }
     }
   }

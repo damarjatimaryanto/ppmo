@@ -34,7 +34,6 @@ import { SafeAreaView } from "react-native";
 import pushNotification from "./alarm/pushNotification";
 import pushSchedule from "./alarm/pushSchedule";
 
-
 import PushNotification from "react-native-push-notification";
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
@@ -239,7 +238,7 @@ const AlarmScreen = () => {
                 startDate: startDate,
                 endDate: endDate,
                 hour: hrs,
-                minutes: min
+                minutes: min,
               });
 
               if (alarmSession == null) {
@@ -276,12 +275,20 @@ const AlarmScreen = () => {
                 startDate: startDate,
                 endDate: endDate,
                 hour: hrs,
-                minutes: min
+                minutes: min,
               });
 
-
               if (alarmSession == null) {
-                pushSchedule(resp.hari_satu, resp.hari_dua, resp.hari_tiga, lamaPengobatan, jam, fase, hrs, min);
+                pushSchedule(
+                  resp.hari_satu,
+                  resp.hari_dua,
+                  resp.hari_tiga,
+                  lamaPengobatan,
+                  jam,
+                  fase,
+                  hrs,
+                  min
+                );
 
                 // pushScheduled(
                 //   parseFloat(resp.hour),
@@ -329,12 +336,20 @@ const AlarmScreen = () => {
                 lama_pengobatan: resp.lama_pengobatan,
                 fase: resp.fase,
                 hour: hrs,
-                minutes: min
+                minutes: min,
               });
 
-
               if (alarmSession == null) {
-                pushSchedule(resp.hari_satu, resp.hari_dua, resp.hari_tiga, lamaPengobatan, jam, fase, hrs, min);
+                pushSchedule(
+                  resp.hari_satu,
+                  resp.hari_dua,
+                  resp.hari_tiga,
+                  lamaPengobatan,
+                  jam,
+                  fase,
+                  hrs,
+                  min
+                );
 
                 // pushScheduled(
                 //   parseFloat(resp.hour),
@@ -597,8 +612,8 @@ const AlarmScreen = () => {
           animationInTiming={2000}
           animationIn={"fadeIn"}
           animationOut={"fadeOut"}
-        // deviceHeight={height}
-        // deviceWidth={width}
+          // deviceHeight={height}
+          // deviceWidth={width}
         >
           <View
             style={{

@@ -757,7 +757,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     width: width - 15,
     paddingHorizontal: "2%",
-    marginTop: 2,
+    marginTop: 3,
     height: 45,
     justifyContent: "center",
     alignItems: "center",
@@ -765,7 +765,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 10,
+    elevation: 3,
   },
 
   box_2: {
@@ -805,7 +805,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 0.4,
 
-    elevation: 5,
+    elevation: 3,
   },
   box_image: {
     // backgroundColor: 'grey',
