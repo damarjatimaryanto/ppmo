@@ -31,10 +31,6 @@ import Konfirmasi from "./pages/Konfirmasi";
 import { AntDesign } from "@expo/vector-icons";
 import TambahAlarm from "./pages/TambahAlarm";
 import Test from "./pages/Test";
-import alarmdesain from "./pages/alarmdesain";
-import TestScreen from "./pages/alarmdesain";
-import TestScreen_2 from "./pages/alarmdesain_2";
-import TestScreen_3 from "./pages/alarmdesain_3";
 import Alarm from "./pages/Alarm";
 import Settings from "./pages/Settings";
 
@@ -223,43 +219,6 @@ const App = () => {
             headerShown: true,
             tabBarStyle: { display: "none" },
             tabBarButton: () => null,
-          }}
-        />
-        <Tab.Screen
-          name="TestScreen"
-          component={TestScreen}
-          options={{
-            headerTitle: "AlarmDesain 1",
-            // headerTransparent: true,
-            headerShown: true,
-            tabBarStyle: { display: "none" },
-            tabBarButton: () => null,
-            headerLeft: () => <Back />,
-          }}
-        />
-        <Tab.Screen
-          name="TestScreen_2"
-          component={TestScreen_2}
-          options={{
-            headerTitle: "Alarm Desain 2",
-            // headerTransparent: true,
-            headerShown: true,
-            tabBarStyle: { display: "none" },
-            tabBarButton: () => null,
-            headerLeft: () => <Back />,
-          }}
-        />
-        <Tab.Screen
-          name="TestScreen_3"
-          component={TestScreen_3}
-          options={{
-            // headerTransparent: true,
-            headerTitle: "Alarm Desain 3",
-            // headerTransparent: true,
-            headerShown: true,
-            tabBarStyle: { display: "none" },
-            tabBarButton: () => null,
-            headerLeft: () => <Back />,
           }}
         />
         <Tab.Screen

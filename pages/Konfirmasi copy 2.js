@@ -12,8 +12,10 @@ import {
   Button,
   StatusBar,
   AppRegistry,
+  ToastAndroid,
   Dimensions,
   SafeAreaView,
+  BackHandler,
 } from "react-native";
 import React, { useRef, useEffect, useState } from "react";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
@@ -28,6 +30,7 @@ const actions = [
     position: 2,
   },
 ];
+
 const COLORS = { primary: "#1E319D", white: "#FFFFFF" };
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
@@ -35,29 +38,27 @@ const Konfirmasi = () => {
   const navigation = useNavigation();
   const [refresh, setRefresh] = useState(Math.random()); // refresh bukan refreshcontrol
 
-  const [shouldShow, setShouldShow] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [hari, setHari] = useState(null);
-
-  const [obat, setObat] = useState([
-    {
-      id_obat_detail: "",
-      id_jenis_obat_detail: "",
-      id_fase_detail: "",
-      obat: "",
-      fase: "",
-      jenis_obat: "",
-      waktu_minum: "",
-    },
-  ]);
+  const [loadingDua, setLoadingDua] = useState(false);
   const [userSession, setUserSession] = useState([
     {
       uid: "",
-      id_fase_detail: "",
-      fase: "",
     },
   ]);
 
+  const [obat, setObat] = useState([
+    {
+      id_obat_detail: null,
+      id_jenis_obat_detail: null,
+      id_fase_detail: null,
+      obat: null,
+      fase: null,
+      jenis_obat: null,
+      waktu_minum: null,
+    },
+  ]);
+
+  const [hari, setHari] = useState([]);
   const getUser = async () => {
     const userData = JSON.parse(await AsyncStorage.getItem("userData"));
 
@@ -73,7 +74,7 @@ const Konfirmasi = () => {
     })
       .then((res) => res.json())
       .then((resp) => {
-        result = [];
+        const result = [];
 
         result.push({
           uid: resp.id_user,
@@ -81,70 +82,61 @@ const Konfirmasi = () => {
           fase: resp.fase,
         });
 
-        // console.warn(result);
         setUserSession(result);
-        console.warn(userSession);
-        // getHari();
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const getObat = () => {
-    const id_fase = userSession[0].id_fase_detail;
-
-    console.warn(userSession);
-    // fetch("https://afanalfiandi.com/ppmo/api/api.php?op=getObat", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     fase: id_fase,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((resp) => {
-    //     console.warn(resp);
-    //     // setObat(resp);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-  };
-
   const getHari = async () => {
-    const id_fase = obat[0].id_fase_detail;
-
-    // const uid = userSession[0].uid;
-
-    // fetch("https://afanalfiandi.com/ppmo/api/api.php?op=getHari", {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     id: uid,
-    //     fase: id_fase,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((resp) => {
-    //     if (resp.msg == "riwayat") {
-    //       var a = parseFloat(resp.hari) + 1;
-    //       setHari(a);
-    //     } else {
-    //       var b = parseFloat(resp.hari);
-    //       setHari(b);
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.warn("error");
-    //   });
+    fetch("https://afanalfiandi.com/ppmo/api/api.php?op=getHari", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: userSession[0].uid,
+        fase: userSession[0].id_fase_detail,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resp) => {
+        if (resp.msg == "riwayat") {
+          var a = parseFloat(resp.hari) + 1;
+          setHari(a);
+        } else {
+          var b = parseFloat(resp.hari);
+          setHari(b);
+        }
+      })
+      .catch((e) => {
+        console.warn("error");
+      });
   };
+
+  const getObat = async () => {
+    fetch("https://afanalfiandi.com/ppmo/api/api.php?op=getObat", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fase: userSession[0].id_fase_detail,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resp) => {
+        setObat(resp);
+        // console.log(resp);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   const onSubmit = async () => {
     const date = new Date();
     const id = userSession[0].uid;
@@ -167,130 +159,130 @@ const Konfirmasi = () => {
     })
       .then((res) => res.json())
       .then((resp) => {
-        // console.warn(resp);
-        setLoading(true);
+        setLoadingDua(true);
         setTimeout(() => {
           if (resp == "1") {
-            Alert.alert("", "Konfirmasi Berhasil", [
-              {
-                text: "OK",
-                onPress: () => {
-                  navigation.reset({
-                    routes: [
-                      {
-                        name: "AlarmScreen",
-                      },
-                    ],
-                  });
-                },
-              },
-            ]);
+            setLoadingDua(false);
+            ToastAndroid.show("Konfirmasi Berhasil!", ToastAndroid.SHORT);
+            navigation.navigate("AlarmScreen");
           } else {
-            Alert.alert("", "Konfirmasi Gagal", [
-              {
-                text: "OK",
-              },
-            ]);
-
-            setLoading(false);
+            setLoadingDua(false);
+            ToastAndroid.show("Konfirmasi Gagal!", ToastAndroid.SHORT);
           }
-        }, 2000);
+        }, 3000);
       });
   };
+  useEffect(() => {
+    getUser();
+    getHari();
+    getObat();
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setLoading(true);
-      setTimeout(() => {
-        getUser();
-        // getHari();
-        // getObat();
-        setLoading(false);
-      }, 2000);
-      // console.log(loading);
-    }, [refresh])
-  );
+    const backAction = () => {
+      Alert.alert("", "Apakah Anda yakin ingin keluar dari aplikasi?", [
+        {
+          text: "Batal",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "Keluar", onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => backHandler.remove();
+  }, [userSession]);
 
-  // useEffect(() => {
-  //   getUser();
-  //   setTimeout(() => {
-  //     getHari();
-  //     getObat();
-  //     setLoading(false);
-  //   }, 2000);
-  // }, []);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
+
       {loading == true && (
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={loading}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModal(false);
+        // <Modal animationType="fade" transparent={true} visible={loading}>
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 60,
+            width: "40%",
+            left: "30%",
+            top: "40%",
+            backgroundColor: "white",
+            borderRadius: 10,
+            borderColor: "#ddd",
+            borderBottomWidth: 0,
+            shadowColor: "#000000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.9,
+            shadowRadius: 3,
+            elevation: 5,
           }}
         >
-          <View
-            style={{
-              position: "absolute",
-              justifyContent: "center",
-              alignItems: "center",
-              height: 60,
-              width: "40%",
-              left: "30%",
-              top: "40%",
-              backgroundColor: "white",
-              borderRadius: 10,
-              borderColor: "#ddd",
-              borderBottomWidth: 0,
-              shadowColor: "#000000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.9,
-              shadowRadius: 3,
-              elevation: 5,
-            }}
-          >
-            <ActivityIndicator size="large" color={COLORS.primary} />
-            <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
-          </View>
-        </Modal>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+          <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
+        </View>
+        // </Modal>
       )}
 
-      <View
+      {loadingDua == true && (
+        // <Modal animationType="fade" transparent={true} visible={loading}>
+        <View
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 60,
+            width: "40%",
+            left: "30%",
+            top: "40%",
+            backgroundColor: "white",
+            borderRadius: 10,
+            borderColor: "#ddd",
+            borderBottomWidth: 0,
+            shadowColor: "#000000",
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.9,
+            shadowRadius: 3,
+            elevation: 5,
+          }}
+        >
+          <ActivityIndicator size="large" color={COLORS.primary} />
+          <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
+        </View>
+        // </Modal>
+      )}
+      {/* <View
         style={{
-          // backgroundColor: "yellow",
           height: 50,
           width: width,
           flexDirection: "row",
-          // paddingTop: 10,
-          // alignItems: "center",
-          // justifyContent: "center",
           marginBottom: 15,
+          // backgroundColor: "grey",
         }}
       >
         <TouchableOpacity
           onPress={() => navigation.navigate("AlarmScreen")}
           style={{
-            // backgroundColor: "green",
             width: "15%",
             height: "100%",
             justifyContent: "center",
             alignItems: "center",
-            // paddingTop: 20,
           }}
         >
           <AntDesign name="arrowleft" size={25} color={COLORS.primary} />
         </TouchableOpacity>
         <View
           style={{
-            // backgroundColor: "yellow",
             width: "70%",
             height: "100%",
             justifyContent: "center",
             alignItems: "center",
-            // paddingTop: 20,
           }}
         >
           <Text
@@ -303,7 +295,7 @@ const Konfirmasi = () => {
             Konfirmasi
           </Text>
         </View>
-      </View>
+      </View> */}
       <View style={styles.box}>
         <View style={{ flexDirection: "row", width: "100%" }}>
           <View style={styles.judul_style}>
@@ -340,11 +332,12 @@ const Konfirmasi = () => {
             <Text style={styles.judul_isi}>Obat</Text>
           </View>
           <View style={styles.ket_style}>
-            {obat.map((item) => (
-              <View key={item.id_obat_detail}>
-                <Text style={styles.ket_isi}>: {item.obat}</Text>
-              </View>
-            ))}
+            {obat != null &&
+              obat.map((item) => (
+                <View key={item.id_obat_detail}>
+                  <Text style={styles.ket_isi}>: {item.obat}</Text>
+                </View>
+              ))}
           </View>
         </View>
       </View>
@@ -354,23 +347,27 @@ const Konfirmasi = () => {
           <View style={styles.judul_style}>
             <Text style={styles.judul_isi}>Jenis Obat</Text>
           </View>
-          <View style={styles.ket_style}>
-            <Text style={styles.ket_isi}>: {obat[0].jenis_obat}</Text>
-          </View>
+          {obat != null && (
+            <View style={styles.ket_style}>
+              <Text style={styles.ket_isi}>: {obat[0].jenis_obat}</Text>
+            </View>
+          )}
         </View>
       </View>
-      <View style={styles.box}>
+      {/* <View style={styles.box}>
         <View style={{ flexDirection: "row", width: "100%" }}>
           <View style={styles.judul_style}>
             <Text style={styles.judul_isi}>Waktu Minum Obat</Text>
           </View>
-          <View style={styles.ket_style}>
-            <Text style={[styles.ket_isi, { textTransform: "capitalize" }]}>
-              : {obat[0].waktu_minum}
-            </Text>
-          </View>
+          {obat != null && (
+            <View style={styles.ket_style}>
+              <Text style={[styles.ket_isi, { textTransform: "capitalize" }]}>
+                : {obat[0].waktu_minum}
+              </Text>
+            </View>
+          )}
         </View>
-      </View>
+      </View> */}
 
       <TouchableOpacity onPress={onSubmit} style={styles.floatingbutton}>
         <Text
@@ -395,7 +392,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     // justifyContent: "center",
     alignItems: "center",
-    paddingTop: 10,
+    paddingTop: 20,
   },
 
   textbtn: {

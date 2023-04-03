@@ -22,24 +22,16 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import { AntDesign } from "@expo/vector-icons";
-const actions = [
-  {
-    text: "Buat Alarm",
-    icon: require("../assets/icon/alarm.png"),
-    name: "Buat Alarm",
-    position: 2,
-  },
-];
 
 const COLORS = { primary: "#1E319D", white: "#FFFFFF" };
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
-const Konfirmasi = () => {
-  const navigation = useNavigation();
-  const [refresh, setRefresh] = useState(Math.random()); // refresh bukan refreshcontrol
 
+const Konfirmasi = () => {
   const [loading, setLoading] = useState(true);
-  const [loadingDua, setLoadingDua] = useState(false);
+  const [refresh, setRefresh] = useState(Math.random());
+  const navigation = useNavigation();
+
   const [userSession, setUserSession] = useState([
     {
       uid: "",
@@ -59,6 +51,7 @@ const Konfirmasi = () => {
   ]);
 
   const [hari, setHari] = useState([]);
+
   const getUser = async () => {
     const userData = JSON.parse(await AsyncStorage.getItem("userData"));
 
@@ -130,7 +123,6 @@ const Konfirmasi = () => {
       .then((res) => res.json())
       .then((resp) => {
         setObat(resp);
-        // console.log(resp);
       })
       .catch((e) => {
         console.log(e);
@@ -159,44 +151,56 @@ const Konfirmasi = () => {
     })
       .then((res) => res.json())
       .then((resp) => {
-        setLoadingDua(true);
+        setLoading(true);
         setTimeout(() => {
           if (resp == "1") {
-            setLoadingDua(false);
+            setLoading(false);
             ToastAndroid.show("Konfirmasi Berhasil!", ToastAndroid.SHORT);
             navigation.navigate("AlarmScreen");
           } else {
-            setLoadingDua(false);
+            setLoading(false);
             ToastAndroid.show("Konfirmasi Gagal!", ToastAndroid.SHORT);
           }
         }, 3000);
       });
   };
-  useEffect(() => {
-    getUser();
-    getHari();
-    getObat();
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
 
-    const backAction = () => {
-      Alert.alert("", "Apakah Anda yakin ingin keluar dari aplikasi?", [
-        {
-          text: "Batal",
-          onPress: () => null,
-          style: "cancel",
-        },
-        { text: "Keluar", onPress: () => BackHandler.exitApp() },
-      ]);
-      return true;
-    };
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-    return () => backHandler.remove();
+  useEffect(() => {
+    setTimeout(() => {
+      getUser();
+      getHari();
+      getObat();
+    }, 1000);
   }, [userSession]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setLoading(true);
+      setTimeout(() => {
+        // getUser();
+        // getHari();
+        // getObat();
+        setLoading(false);
+      }, 3000);
+
+      const backAction = () => {
+        Alert.alert("", "Apakah Anda yakin ingin keluar dari aplikasi?", [
+          {
+            text: "Batal",
+            onPress: () => null,
+            style: "cancel",
+          },
+          { text: "Keluar", onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+      };
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+      return () => backHandler.remove();
+    }, [refresh])
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -230,33 +234,6 @@ const Konfirmasi = () => {
         // </Modal>
       )}
 
-      {loadingDua == true && (
-        // <Modal animationType="fade" transparent={true} visible={loading}>
-        <View
-          style={{
-            position: "absolute",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 60,
-            width: "40%",
-            left: "30%",
-            top: "40%",
-            backgroundColor: "white",
-            borderRadius: 10,
-            borderColor: "#ddd",
-            borderBottomWidth: 0,
-            shadowColor: "#000000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.9,
-            shadowRadius: 3,
-            elevation: 5,
-          }}
-        >
-          <ActivityIndicator size="large" color={COLORS.primary} />
-          <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
-        </View>
-        // </Modal>
-      )}
       {/* <View
         style={{
           height: 50,
