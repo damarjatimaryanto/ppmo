@@ -66,7 +66,6 @@ const TambahAlarm = () => {
   const [dataFase, setDataFase] = useState([]);
   const [fase, setFase] = useState();
   const [faseLabel, setFaseLabel] = useState(null);
-  const [loadingAdd, setLoadingAdd] = useState(false);
   const [lamaPengobatan, setLamaPengobatan] = useState(null);
 
   const [hariAlarm, setHariAlarm] = useState([]);
@@ -145,15 +144,30 @@ const TambahAlarm = () => {
   };
 
   const pilihHari = (hariNumb) => {
-    if (hariAlarm.length < 3) {
+    if (fase != 2) {
+      if (hariAlarm.length < 3) {
+        hariAlarm.push(hariNumb);
+        setHariAlarm(hariAlarm);
+      } else {
+        ToastAndroid.show(
+          "Jumlah hari yang dipilih sudah mencapai maximal!",
+          ToastAndroid.SHORT
+        );
+      }
+    } else {
       hariAlarm.push(hariNumb);
       setHariAlarm(hariAlarm);
-    } else {
-      ToastAndroid.show(
-        "Jumlah hari yang dipilih sudah mencapai maximal!",
-        ToastAndroid.SHORT
-      );
     }
+
+    // if (hariAlarm.length < 3) {
+    //   hariAlarm.push(hariNumb);
+    //   setHariAlarm(hariAlarm);
+    // } else {
+    //   ToastAndroid.show(
+    //     "Jumlah hari yang dipilih sudah mencapai maximal!",
+    //     ToastAndroid.SHORT
+    //   );
+    // }
   };
   const getFase = () => {
     fetch("https://afanalfiandi.com/ppmo/api/api.php?op=getFase", {})
@@ -683,11 +697,16 @@ const TambahAlarm = () => {
         <TouchableOpacity
           style={pressedSatu ? styles.boxhari_blue : styles.boxhari_grey}
           onPress={() => {
-            if (hariAlarm.length < 3) {
-              pilihHari(0);
-              setPressedSatu(true);
+            if (fase != 2) {
+              if (hariAlarm.length < 3) {
+                pilihHari(0);
+                setPressedSatu(true);
+              } else {
+                pilihHari(0);
+              }
             } else {
               pilihHari(0);
+              setPressedSatu(true);
             }
           }}
           disabled={pressedSatu ? true : false}
@@ -704,11 +723,16 @@ const TambahAlarm = () => {
         <TouchableOpacity
           style={pressedDua ? styles.boxhari_blue : styles.boxhari_grey}
           onPress={() => {
-            if (hariAlarm.length < 3) {
-              pilihHari(1);
-              setPressedDua(true);
+            if (fase != 2) {
+              if (hariAlarm.length < 3) {
+                pilihHari(1);
+                setPressedDua(true);
+              } else {
+                pilihHari(1);
+              }
             } else {
               pilihHari(1);
+              setPressedDua(true);
             }
           }}
           disabled={pressedDua ? true : false}
@@ -725,11 +749,16 @@ const TambahAlarm = () => {
         <TouchableOpacity
           style={pressedTiga ? styles.boxhari_blue : styles.boxhari_grey}
           onPress={() => {
-            if (hariAlarm.length < 3) {
-              pilihHari(2);
-              setPressedTiga(true);
+            if (fase != 2) {
+              if (hariAlarm.length < 3) {
+                pilihHari(2);
+                setPressedTiga(true);
+              } else {
+                pilihHari(2);
+              }
             } else {
               pilihHari(2);
+              setPressedTiga(true);
             }
           }}
           disabled={pressedTiga ? true : false}
@@ -746,11 +775,16 @@ const TambahAlarm = () => {
         <TouchableOpacity
           style={pressedEmpat ? styles.boxhari_blue : styles.boxhari_grey}
           onPress={() => {
-            if (hariAlarm.length < 3) {
-              pilihHari(3);
-              setPressedEmpat(true);
+            if (fase != 2) {
+              if (hariAlarm.length < 3) {
+                pilihHari(3);
+                setPressedEmpat(true);
+              } else {
+                pilihHari(3);
+              }
             } else {
               pilihHari(3);
+              setPressedEmpat(true);
             }
           }}
           disabled={pressedEmpat ? true : false}
@@ -767,11 +801,16 @@ const TambahAlarm = () => {
         <TouchableOpacity
           style={pressedLima ? styles.boxhari_blue : styles.boxhari_grey}
           onPress={() => {
-            if (hariAlarm.length < 3) {
-              pilihHari(4);
-              setPressedLima(true);
+            if (fase != 2) {
+              if (hariAlarm.length < 3) {
+                pilihHari(4);
+                setPressedLima(true);
+              } else {
+                pilihHari(4);
+              }
             } else {
               pilihHari(4);
+              setPressedLima(true);
             }
           }}
           disabled={pressedLima ? true : false}
@@ -788,11 +827,16 @@ const TambahAlarm = () => {
         <TouchableOpacity
           style={pressedEnam ? styles.boxhari_blue : styles.boxhari_grey}
           onPress={() => {
-            if (hariAlarm.length < 3) {
-              pilihHari(5);
-              setPressedEnam(true);
+            if (fase != 2) {
+              if (hariAlarm.length < 3) {
+                pilihHari(5);
+                setPressedEnam(true);
+              } else {
+                pilihHari(5);
+              }
             } else {
               pilihHari(5);
+              setPressedEnam(true);
             }
           }}
           disabled={pressedEnam ? true : false}
@@ -809,11 +853,16 @@ const TambahAlarm = () => {
         <TouchableOpacity
           style={pressedTujuh ? styles.boxhari_blue : styles.boxhari_grey}
           onPress={() => {
-            if (hariAlarm.length < 3) {
-              pilihHari(6);
-              setPressedTujuh(true);
+            if (fase != 2) {
+              if (hariAlarm.length < 3) {
+                pilihHari(6);
+                setPressedTujuh(true);
+              } else {
+                pilihHari(6);
+              }
             } else {
               pilihHari(6);
+              setPressedTujuh(true);
             }
           }}
           disabled={pressedTujuh ? true : false}
@@ -889,9 +938,10 @@ const TambahAlarm = () => {
               hours != null &&
               minutes != null &&
               fase != 1 &&
-              hariAlarm.length == 3
+              hariAlarm.length >= 3
             ) {
               if (fase == 2) {
+                // console.log(hariAlarm);
                 addLanjutan(
                   hours,
                   minutes,
@@ -904,7 +954,7 @@ const TambahAlarm = () => {
                   dua,
                   tiga
                 );
-                navigation.navigate("AlarmScreen");
+                // navigation.navigate("AlarmScreen");
               } else if (fase == 3) {
                 addExtend(
                   hours,
