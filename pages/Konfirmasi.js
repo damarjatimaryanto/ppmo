@@ -28,7 +28,7 @@ const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 
 const Konfirmasi = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(Math.random());
   const navigation = useNavigation();
 
@@ -166,22 +166,22 @@ const Konfirmasi = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      getUser();
-      getHari();
-      getObat();
-    }, 1000);
+    // setTimeout(() => {
+    getUser();
+    getHari();
+    getObat();
+    // }, 1000);
   }, [userSession]);
 
   useFocusEffect(
     React.useCallback(() => {
-      setLoading(true);
-      setTimeout(() => {
-        // getUser();
-        // getHari();
-        // getObat();
-        setLoading(false);
-      }, 3000);
+      // setLoading(true);
+      // setTimeout(() => {
+      //   // getUser();
+      //   // getHari();
+      //   // getObat();
+      //   setLoading(false);
+      // }, 3000);
 
       const backAction = () => {
         Alert.alert("", "Apakah Anda yakin ingin keluar dari aplikasi?", [

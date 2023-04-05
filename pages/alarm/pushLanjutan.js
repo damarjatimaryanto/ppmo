@@ -12,157 +12,65 @@ const pushLanjutan = (hr, lamaPengobatan, jam, fase, hours, minutes) => {
       soundName: "sound.wav",
       playSound: true,
     },
-    (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+    (created) => {} // (optional) callback returns whether the channel was created, false means it already existed.
   );
 
   const dateNow = moment().format("YYYY-MM-DD HH:mm");
 
-  // tgl asli, 2023-01-01
-  var satudate;
-  var duadate;
-  var tigadate;
-  var empatdate;
-  var limadate;
-  var enamdate;
-  var tujuhdate;
+  const tgl = []; // berisi tgl asli berdasarkan hari yang dipilih
+  var convert = []; // berisi tgl yg sudah dibentuk dengan format YYYY-MM-DD
+  var convertJam = []; // berisi tgl yg sudah diberi jam dengan format YYYY-MM-DD HH:mm
+  var convertSeminggu = []; // berisi tgl yg sudah ditambahkan 7 hari dengan format YYYY-MM-DD HH:mm
 
-  // tambah 7 hari, 2023-01-07
-  var addSatu;
-  var addDua;
-  var addTiga;
-  var addEmpat;
-  var addLima;
-  var addEnam;
-  var addTujuh;
-
-  // convert jam
-  var convertSatu;
-  var convertDua;
-  var convertTiga;
-  var convertEmpat;
-  var convertLima;
-  var convertEnam;
-  var convertTujuh;
-
-  // convert jam
-  var convertBesokSatu;
-  var convertBesokDua;
-  var convertBesokTiga;
-  var convertBesokEmpat;
-  var convertBesokLima;
-  var convertBesokEnam;
-  var convertBesokTujuh;
-
-  for (const index of hr.keys()) {
-    satudate = moment().isoWeekday(hr[0]).format("YYYY-MM-DD");
-    satudate = moment().isoWeekday(hr[0]).format("YYYY-MM-DD");
-    satudate = moment().isoWeekday(hr[0]).format("YYYY-MM-DD");
-    satudate = moment().isoWeekday(hr[0]).format("YYYY-MM-DD");
-    satudate = moment().isoWeekday(hr[0]).format("YYYY-MM-DD");
-    satudate = moment().isoWeekday(hr[0]).format("YYYY-MM-DD");
-    satudate = moment().isoWeekday(hr[0]).format("YYYY-MM-DD");
-
-    addSatu = moment(moment(satudate, "YYYY-MM-DD").add(7, "days")).format(
-      "YYYY-MM-DD"
-    );
-    addSatu = moment(moment(satudate, "YYYY-MM-DD").add(7, "days")).format(
-      "YYYY-MM-DD"
-    );
-    addSatu = moment(moment(satudate, "YYYY-MM-DD").add(7, "days")).format(
-      "YYYY-MM-DD"
-    );
-    addSatu = moment(moment(satudate, "YYYY-MM-DD").add(7, "days")).format(
-      "YYYY-MM-DD"
-    );
-
-    // kemarin
-    convertSatu = moment(addSatu + " " + hours + ":" + minutes).format(
-      "YYYY-MM-DD HH:mm"
-    );
-    convertSatu = moment(addSatu + " " + hours + ":" + minutes).format(
-      "YYYY-MM-DD HH:mm"
-    );
-    convertSatu = moment(addSatu + " " + hours + ":" + minutes).format(
-      "YYYY-MM-DD HH:mm"
-    );
-    convertSatu = moment(addSatu + " " + hours + ":" + minutes).format(
-      "YYYY-MM-DD HH:mm"
-    );
-
-    // besoknya
-    convertBesokSatu = moment(satudate + " " + hours + ":" + minutes).format(
-      "YYYY-MM-DD HH:mm"
-    );
-    convertBesokSatu = moment(satudate + " " + hours + ":" + minutes).format(
-      "YYYY-MM-DD HH:mm"
-    );
-    convertBesokSatu = moment(satudate + " " + hours + ":" + minutes).format(
-      "YYYY-MM-DD HH:mm"
-    );
-
-    // PushNotification.localNotificationSchedule({
-    //   channelId: "ppmo-tbc",
-    //   title: "Pengingat Minum Obat", // (optional)
-    //   message: "Lakukan Konfirmasi dengan menekan notifikasi ini",
-    //   date: moment(convertedDua).toDate(),
-    //   allowWhileIdle: false,
-    //   repeatTime: 7,
-    //   repeatType: "day",
-    //   // actions: ["Konfirmasi"],
-    // });
+  for (const i of hr.keys()) {
+    tgl.push(moment().isoWeekday(hr[i]).format("YYYY-MM-DD"));
   }
 
-  var hr = [2, 3, 4, 6];
+  for (const index of tgl.keys()) {
+    convert.push(moment(tgl[index]).format("YYYY-MM-DD"));
+  }
 
-  if (hr[0] != null) {
-    if (moment(convertSatu).isBefore(dateNow)) {
+  for (const i of convert.keys()) {
+    convertJam.push(
+      moment(convert[i] + " " + hours + ":" + minutes).format(
+        "YYYY-MM-DD HH:mm"
+      )
+    );
+  }
+
+  for (const ind of convertJam.keys()) {
+    convertSeminggu.push(
+      moment(moment(convertJam[ind], "YYYY-MM-DD HH:mm").add(7, "days")).format(
+        "YYYY-MM-DD HH:mm"
+      )
+    );
+  }
+
+  for (const i of tgl.keys()) {
+    if (moment(convertJam[i]).isBefore(dateNow)) {
+      console.log("seminggu : " + convertSeminggu[i]);
       PushNotification.localNotificationSchedule({
         channelId: "ppmo-tbc",
         title: "Pengingat Minum Obat", // (optional)
         message: "Lakukan Konfirmasi dengan menekan notifikasi ini",
-        date: moment(convertBesokSatu).toDate(),
+        date: moment(convertSeminggu[i]).toDate(),
         allowWhileIdle: false,
         repeatTime: 7,
         repeatType: "day",
         // actions: ["Konfirmasi"],
       });
-    } else if (hr[1] != null) {
-      if (moment(convertDua).isBefore(dateNow)) {
-        PushNotification.localNotificationSchedule({
-          channelId: "ppmo-tbc",
-          title: "Pengingat Minum Obat", // (optional)
-          message: "Lakukan Konfirmasi dengan menekan notifikasi ini",
-          date: moment(convertBesokSatu).toDate(),
-          allowWhileIdle: false,
-          repeatTime: 7,
-          repeatType: "day",
-          // actions: ["Konfirmasi"],
-        });
-
-        PushNotification.localNotificationSchedule({
-          channelId: "ppmo-tbc",
-          title: "Pengingat Minum Obat", // (optional)
-          message: "Lakukan Konfirmasi dengan menekan notifikasi ini",
-          date: moment(convertBesokDua).toDate(),
-          allowWhileIdle: false,
-          repeatTime: 7,
-          repeatType: "day",
-          // actions: ["Konfirmasi"],
-        });
-      }
-    } } else if (hr[2] != null) {
-      if (moment(convertDua).isBefore(dateNow)) {
-        PushNotification.localNotificationSchedule({
-          channelId: "ppmo-tbc",
-          title: "Pengingat Minum Obat", // (optional)
-          message: "Lakukan Konfirmasi dengan menekan notifikasi ini",
-          date: moment(convertBesokSatu).toDate(),
-          allowWhileIdle: false,
-          repeatTime: 7,
-          repeatType: "day",
-          // actions: ["Konfirmasi"],
-        });
-      }
+    } else {
+      console.log("asli : " + convertJam[i]);
+      PushNotification.localNotificationSchedule({
+        channelId: "ppmo-tbc",
+        title: "Pengingat Minum Obat", // (optional)
+        message: "Lakukan Konfirmasi dengan menekan notifikasi ini",
+        date: moment(convertJam[i]).toDate(),
+        allowWhileIdle: false,
+        repeatTime: 7,
+        repeatType: "day",
+        // actions: ["Konfirmasi"],
+      });
     }
   }
 };

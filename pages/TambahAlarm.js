@@ -892,85 +892,190 @@ const TambahAlarm = () => {
             const tiga = hariAlarm[2];
 
             // jika semua data kosong
-            if (
-              fase == null &&
-              hari == null &&
-              lamaPengobatan == null &&
-              hours == null &&
-              minutes == null &&
-              hariAlarm.length < 3
-            ) {
-              ToastAndroid.show(
-                "Mohon lengkapi data pada form!",
-                ToastAndroid.SHORT
-              );
-              // jika salah satu data kosong dan fase bukan 1 -> ini agar ketika user blm memilih hari sebanyak tiga kali muncul peringatan
-            } else if (
-              fase == null ||
-              hari == null ||
-              lamaPengobatan == null ||
-              hours == null ||
-              minutes == null ||
-              (hariAlarm.length < 3 && fase != 1)
-            ) {
-              ToastAndroid.show(
-                "Mohon lengkapi data pada form!",
-                ToastAndroid.SHORT
-              );
-              // jika semua data lengkap dan fase = 1
-            } else if (
-              fase != null &&
-              hari != null &&
-              lamaPengobatan != null &&
-              hours != null &&
-              minutes != null &&
-              fase == 1
-            ) {
-              // pushNotification(lamaPengobatan, hours, minutes, jam);
-              addInsentif(hours, minutes, lamaPengobatan, hari, jam, fase);
-              navigation.navigate("AlarmScreen");
-
-              // jika semua datalengkap, hari alarm berjumlah 3 dan fase bukan 1
-            } else if (
-              fase != null &&
-              hari != null &&
-              lamaPengobatan != null &&
-              hours != null &&
-              minutes != null &&
-              fase != 1 &&
-              hariAlarm.length >= 3
-            ) {
-              if (fase == 2) {
-                // console.log(hariAlarm);
-                addLanjutan(
-                  hours,
-                  minutes,
-                  lamaPengobatan,
-                  hari,
-                  jam,
-                  fase,
-                  hariAlarm,
-                  satu,
-                  dua,
-                  tiga
-                );
-                // navigation.navigate("AlarmScreen");
-              } else if (fase == 3) {
-                addExtend(
-                  hours,
-                  minutes,
-                  lamaPengobatan,
-                  hari,
-                  jam,
-                  fase,
-                  hariAlarm,
-                  satu,
-                  dua,
-                  tiga
-                );
-                navigation.navigate("AlarmScreen");
+            try {
+              if (
+                fase == null &&
+                hari == null &&
+                lamaPengobatan == null &&
+                hours == null &&
+                minutes == null &&
+                hariAlarm.length < 1
+              ) {
+                ToastAndroid.show("Semua data kosong!", ToastAndroid.SHORT);
               }
+
+              // jika salah satu kosong
+              else if (
+                fase == null ||
+                hari == null ||
+                lamaPengobatan == null ||
+                hours == null ||
+                minutes == null ||
+                hariAlarm.length == 0
+              ) {
+                ToastAndroid.show(
+                  "salah satu data kosong!",
+                  ToastAndroid.SHORT
+                );
+
+                // jika data lengkap
+              } else if (
+                fase != null ||
+                hari != null ||
+                lamaPengobatan != null ||
+                hours != null ||
+                minutes != null ||
+                hariAlarm.length > 0
+              ) {
+                if (fase == 1) {
+                  // "fase satu, tidak harus memilih hari!",
+                  // buat alarm
+                  addInsentif(hours, minutes, lamaPengobatan, hari, jam, fase);
+                  navigation.navigate("AlarmScreen");
+                } else if (fase == 2) {
+                  // "fase dua, hari sudah dipilih!",
+                  // buat alarm
+                  addLanjutan(
+                    hours,
+                    minutes,
+                    lamaPengobatan,
+                    hari,
+                    jam,
+                    fase,
+                    hariAlarm,
+                    satu,
+                    dua,
+                    tiga
+                  );
+                  navigation.navigate("AlarmScreen");
+
+                  // ToastAndroid.show("berhasil", ToastAndroid.SHORT);
+                } else if (fase == 3 && hariAlarm.length < 3) {
+                  // "fase tiga, hari kurang!",
+                  // jgn buat alarm
+                  ToastAndroid.show(
+                    "Mohon lengkapi data pada form!",
+                    ToastAndroid.SHORT
+                  );
+                } else if (fase == 3 && hariAlarm.length == 3) {
+                  // "fase tiga, hari lengkap!",
+                  //buat alarm
+                  addExtend(
+                    hours,
+                    minutes,
+                    lamaPengobatan,
+                    hari,
+                    jam,
+                    fase,
+                    hariAlarm,
+                    satu,
+                    dua,
+                    tiga
+                  );
+                  navigation.navigate("AlarmScreen");
+                }
+              }
+            } catch (error) {
+              console.log(error);
             }
+            // jika lengkap
+
+            // TODO ------------------
+            // jika semua data kosong
+            // if (
+            //   fase == null &&
+            //   hari == null &&
+            //   lamaPengobatan == null &&
+            //   hours == null &&
+            //   minutes == null &&
+            //   hariAlarm.length < 3
+            // ) {
+            //   ToastAndroid.show(
+            //     "Mohon lengkapi data pada form!",
+            //     ToastAndroid.SHORT
+            //   );
+            //   // jika salah satu data kosong dan fase bukan 1 -> ini agar ketika user blm memilih hari sebanyak tiga kali muncul peringatan
+            // } else if (
+            //   fase == null ||
+            //   hari == null ||
+            //   lamaPengobatan == null ||
+            //   hours == null ||
+            //   minutes == null ||
+            //   (hariAlarm.length < 1 && fase == 2)
+            // ) {
+            //   ToastAndroid.show(
+            //     "Mohon lengkapi data pada form!",
+            //     ToastAndroid.SHORT
+            //   );
+            //   // jika semua data lengkap dan fase = 1
+            // } else if (
+            //   fase == null ||
+            //   hari == null ||
+            //   lamaPengobatan == null ||
+            //   hours == null ||
+            //   minutes == null ||
+            //   (hariAlarm.length < 3 && fase == 3)
+            // ) {
+            //   ToastAndroid.show(
+            //     "Mohon lengkapi data pada form!",
+            //     ToastAndroid.SHORT
+            //   );
+            //   // jika semua data lengkap dan fase = 1
+            // } else if (
+            //   fase != null &&
+            //   hari != null &&
+            //   lamaPengobatan != null &&
+            //   hours != null &&
+            //   minutes != null &&
+            //   fase == 1
+            // ) {
+            //   // pushNotification(lamaPengobatan, hours, minutes, jam);
+            //   addInsentif(hours, minutes, lamaPengobatan, hari, jam, fase);
+            //   navigation.navigate("AlarmScreen");
+
+            //   // jika semua datalengkap, hari alarm berjumlah 3 dan fase bukan 1
+            // } else if (
+            //   fase != null &&
+            //   hari != null &&
+            //   lamaPengobatan != null &&
+            //   hours != null &&
+            //   minutes != null &&
+            //   fase != 1 &&
+            //   hariAlarm.length >= 3
+            // ) {
+            //   if (fase == 2) {
+            //     // console.log(hariAlarm);
+            //     addLanjutan(
+            //       hours,
+            //       minutes,
+            //       lamaPengobatan,
+            //       hari,
+            //       jam,
+            //       fase,
+            //       hariAlarm,
+            //       satu,
+            //       dua,
+            //       tiga
+            //     );
+            //     // navigation.navigate("AlarmScreen");
+            //   } else if (fase == 3) {
+            //     addExtend(
+            //       hours,
+            //       minutes,
+            //       lamaPengobatan,
+            //       hari,
+            //       jam,
+            //       fase,
+            //       hariAlarm,
+            //       satu,
+            //       dua,
+            //       tiga
+            //     );
+            //     navigation.navigate("AlarmScreen");
+            //   }
+            // }
+
+            // TODO ----------------------
             setLoading(false);
           }, 3000);
         }}

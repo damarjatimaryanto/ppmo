@@ -128,6 +128,11 @@ const AlarmScreen = () => {
     setModalVisible(!isModalVisible);
   };
 
+  const cekAlarm = () => {
+    PushNotification.getScheduledLocalNotifications((data) => {
+      console.log("ScheduledLocalNotifications: ", data);
+    });
+  };
   useFocusEffect(
     React.useCallback(() => {
       setLoading(true);
@@ -136,6 +141,7 @@ const AlarmScreen = () => {
         getSelisih();
         getAlarm();
         loadAsync();
+        // cekAlarm();
         setLoading(false);
       }, 1500);
 

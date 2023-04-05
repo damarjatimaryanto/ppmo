@@ -29,46 +29,46 @@ const addLanjutan = async (
   const hr = hariAlarm.sort();
 
   // // insert
-  // fetch("https://afanalfiandi.com/ppmo/api/api.php?op=insAlarmLanjutan", {
-  //   method: "POST",
-  //   headers: {
-  //     Accept: "application/json",
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     id: userData[0].id_user,
-  //     hari: hari,
-  //     jam: jam,
-  //     fase: fase,
-  //     start: newDate,
-  //     end: newEndDate,
-  //     hour: hours,
-  //     minute: minutes,
-  //     hr: hr,
-  //   }),
-  // })
-  //   .then((res) => res.json())
-  //   .then(async (resp) => {
-  //     if (resp == "1") {
-  // AsyncStorage.setItem("alarmSession", "1");
-  // try {
-  //   await AsyncStorage.removeItem("selisihSession");
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  fetch("https://afanalfiandi.com/ppmo/api/api.php?op=insAlarmLanjutan", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: userData[0].id_user,
+      hari: hari,
+      jam: jam,
+      fase: fase,
+      start: newDate,
+      end: newEndDate,
+      hour: hours,
+      minute: minutes,
+      hr: hr,
+    }),
+  })
+    .then((res) => res.json())
+    .then(async (resp) => {
+      if (resp == "1") {
+        AsyncStorage.setItem("alarmSession", "1");
+        try {
+          await AsyncStorage.removeItem("selisihSession");
+        } catch (error) {
+          console.log(error);
+        }
 
-  ToastAndroid.show("Alarm Berhasil Ditambahkan!", ToastAndroid.SHORT);
-  pushLanjutan(hr, lamaPengobatan, jam, fase, hours, minutes);
-  // hariAlarm.map((d) => {
-  //   pushScheduled(hrs, min, d);
-  // });
-  //   } else {
-  //     ToastAndroid.show("Alarm Gagal Ditambahkan!", ToastAndroid.SHORT);
-  //   }
-  // })
-  // .catch((e) => {
-  //   console.log(e);
-  // });
+        ToastAndroid.show("Alarm Berhasil Ditambahkan!", ToastAndroid.SHORT);
+        pushLanjutan(hr, lamaPengobatan, jam, fase, hours, minutes);
+        // hariAlarm.map((d) => {
+        //   pushScheduled(hrs, min, d);
+        // });
+      } else {
+        ToastAndroid.show("Alarm Gagal Ditambahkan!", ToastAndroid.SHORT);
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 };
 
 export default addLanjutan;
