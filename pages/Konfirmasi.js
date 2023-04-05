@@ -28,7 +28,7 @@ const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 
 const Konfirmasi = () => {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(Math.random());
   const navigation = useNavigation();
 
@@ -151,17 +151,17 @@ const Konfirmasi = () => {
     })
       .then((res) => res.json())
       .then((resp) => {
-        setLoading(true);
-        setTimeout(() => {
-          if (resp == "1") {
-            setLoading(false);
-            ToastAndroid.show("Konfirmasi Berhasil!", ToastAndroid.SHORT);
-            navigation.navigate("AlarmScreen");
-          } else {
-            setLoading(false);
-            ToastAndroid.show("Konfirmasi Gagal!", ToastAndroid.SHORT);
-          }
-        }, 3000);
+        // setLoading(true);
+        // setTimeout(() => {
+        if (resp == "1") {
+          // setLoading(false);
+          ToastAndroid.show("Konfirmasi Berhasil!", ToastAndroid.SHORT);
+          navigation.navigate("AlarmScreen");
+        } else {
+          // setLoading(false);
+          ToastAndroid.show("Konfirmasi Gagal!", ToastAndroid.SHORT);
+        }
+        // }, 500);
       });
   };
 

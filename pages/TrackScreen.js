@@ -14,6 +14,7 @@ import { Calendar, LocaleConfig } from "react-native-calendars";
 import { useFonts } from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FlatList } from "react-native-gesture-handler";
+import { useFocusEffect } from "@react-navigation/native";
 import moment from "moment";
 import "moment/locale/id";
 const COLORS = {
@@ -25,6 +26,7 @@ const COLORS = {
 const width = Dimensions.get("screen").width;
 const height = Dimensions.get("screen").height;
 const TrackScreen = () => {
+  const [refresh, setRefresh] = useState(Math.random());
   LocaleConfig.locales["id"] = {
     monthNames: [
       "Januari",
@@ -188,6 +190,28 @@ const TrackScreen = () => {
     getAlarm();
     getRiwayat();
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const backAction = () => {
+        Alert.alert("", "Apakah Anda yakin ingin keluar dari aplikasi?", [
+          {
+            text: "Batal",
+            onPress: () => null,
+            style: "cancel",
+          },
+          { text: "Keluar", onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+      };
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+      return () => backHandler.remove();
+    }, [refresh])
+  );
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />

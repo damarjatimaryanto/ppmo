@@ -128,11 +128,11 @@ const AlarmScreen = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const cekAlarm = () => {
-    PushNotification.getScheduledLocalNotifications((data) => {
-      console.log("ScheduledLocalNotifications: ", data);
-    });
-  };
+  // const cekAlarm = () => {
+  //   PushNotification.getScheduledLocalNotifications((data) => {
+  //     console.log("ScheduledLocalNotifications: ", data);
+  //   });
+  // };
   useFocusEffect(
     React.useCallback(() => {
       setLoading(true);
@@ -285,16 +285,16 @@ const AlarmScreen = () => {
               });
 
               if (alarmSession == null) {
-                pushSchedule(
-                  resp.hari_satu,
-                  resp.hari_dua,
-                  resp.hari_tiga,
-                  lamaPengobatan,
-                  jam,
-                  fase,
-                  hrs,
-                  min
-                );
+                // pushSchedule(
+                //   resp.hari_satu,
+                //   resp.hari_dua,
+                //   resp.hari_tiga,
+                //   lamaPengobatan,
+                //   jam,
+                //   fase,
+                //   hrs,
+                //   min
+                // );
 
                 // pushScheduled(
                 //   parseFloat(resp.hour),
