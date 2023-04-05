@@ -5,7 +5,7 @@ import pushScheduled from "./pushScheduled";
 import getAlarm from "./getAlarm";
 import { useNavigation } from "@react-navigation/native";
 import pushNotification from "../alarm/pushNotification";
-import pushSchedule from "../alarm/pushSchedule";
+import pushLanjutan from "../alarm/pushLanjutan";
 const addLanjutan = async (
   hours,
   minutes,
@@ -26,11 +26,8 @@ const addLanjutan = async (
   const endDate = moment(startDate).add(lamaPengobatan, "days").toDate();
   const newEndDate = moment(endDate).format("YYYY-MM-DD");
 
-  const satu = parseFloat(hariAlarm[0]);
-  const dua = parseFloat(hariAlarm[1]);
-  const tiga = parseFloat(hariAlarm[2]);
+  const hr = hariAlarm.sort();
 
-  console.warn(hariAlarm);
   // // insert
   // fetch("https://afanalfiandi.com/ppmo/api/api.php?op=insAlarmLanjutan", {
   //   method: "POST",
@@ -41,36 +38,37 @@ const addLanjutan = async (
   //   body: JSON.stringify({
   //     id: userData[0].id_user,
   //     hari: hari,
-  //     hari_satu: satu,
-  //     hari_dua: dua,
-  //     hari_tiga: tiga,
   //     jam: jam,
   //     fase: fase,
   //     start: newDate,
   //     end: newEndDate,
   //     hour: hours,
   //     minute: minutes,
+  //     hr: hr,
   //   }),
   // })
   //   .then((res) => res.json())
   //   .then(async (resp) => {
   //     if (resp == "1") {
-  //       AsyncStorage.setItem("alarmSession", "1");
-  //       try {
-  //         await AsyncStorage.removeItem("selisihSession");
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
+  // AsyncStorage.setItem("alarmSession", "1");
+  // try {
+  //   await AsyncStorage.removeItem("selisihSession");
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
-  //       ToastAndroid.show("Alarm Berhasil Ditambahkan!", ToastAndroid.SHORT);
-  //       pushSchedule(s, d, t, lamaPengobatan, jam, fase, hours, minutes);
-  //       // hariAlarm.map((d) => {
-  //       //   pushScheduled(hrs, min, d);
-  //       // });
-  //     } else {
-  //       ToastAndroid.show("Alarm Gagal Ditambahkan!", ToastAndroid.SHORT);
-  //     }
-  //   });
+  ToastAndroid.show("Alarm Berhasil Ditambahkan!", ToastAndroid.SHORT);
+  pushLanjutan(hr, lamaPengobatan, jam, fase, hours, minutes);
+  // hariAlarm.map((d) => {
+  //   pushScheduled(hrs, min, d);
+  // });
+  //   } else {
+  //     ToastAndroid.show("Alarm Gagal Ditambahkan!", ToastAndroid.SHORT);
+  //   }
+  // })
+  // .catch((e) => {
+  //   console.log(e);
+  // });
 };
 
 export default addLanjutan;

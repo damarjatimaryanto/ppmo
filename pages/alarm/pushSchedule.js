@@ -54,6 +54,7 @@ const pushSchedule = (
       const addSatu = moment(
         moment(tglSatu, "YYYY-MM-DD").add(7, "days")
       ).format("YYYY-MM-DD");
+
       const convertedSatu = moment(
         addSatu + " " + hours + ":" + minutes
       ).format("YYYY-MM-DD HH:mm");
