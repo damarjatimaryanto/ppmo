@@ -409,59 +409,7 @@ const TambahAlarm = () => {
           </View>
         </View>
       </Modal>
-      {/* //? MODAL MENIT -----------------------------------------------------------------------------------------------*/}
-      <Modal
-        isVisible={isMinuteVisible}
-        onBackdropPress={() => setMinuteVisible(false)}
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-      >
-        <View>
-          <ScrollView style={{ height: 300, borderRadius: 20 }}>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                // backgroundColor: "pink",
-              }}
-            >
-              {myloop}
-            </View>
-          </ScrollView>
-        </View>
-      </Modal>
-      {/* //? MODAL JAM -----------------------------------------------------------------------------------------------*/}
-      <Modal
-        isVisible={isHourVisible}
-        onBackdropPress={() => setHourVisible(false)}
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-      >
-        <View>
-          <Text
-            style={{
-              textAlign: "center",
-              color: "white",
-              fontFamily: "Poppins-Medium",
-            }}
-          >
-            Scroll Ke Bawah
-          </Text>
-          <ScrollView style={{ height: 300, borderRadius: 20 }}>
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                // backgroundColor: "pink",
-              }}
-            >
-              {myHour}
-            </View>
-          </ScrollView>
-        </View>
-      </Modal>
+
       {/* //? Tampilan FASE HARI KE LAMA HARI -----------------------------------------------------------------------------------------------*/}
       <View
         style={{
@@ -560,7 +508,7 @@ const TambahAlarm = () => {
             alignItems: "center",
           }}
         >
-          <View style={{ width: "40%" }}>
+          <View style={{ width: "40%", backgroundColor: "yellow" }}>
             <Text
               style={{
                 fontFamily: "Poppins-SemiBold",
@@ -570,16 +518,32 @@ const TambahAlarm = () => {
             >
               Jam
             </Text>
-            <View style={styles.alarm_set_style}>
+            <View
+              style={{
+                // backgroundColor: "grey",
+                width: "100%",
+                height: 150,
+                borderRadius: 10,
+                justifyContent: "center",
+                alignItems: "center",
+                // shadowColor: "#000",
+                // shadowOffset: { width: 0, height: 2 },
+                // shadowOpacity: 0.25,
+                // shadowRadius: 3.84,
+                // elevation: 3,
+                // paddingTop: 10,
+              }}
+            >
               <TextInput
                 style={{
                   width: "80%",
                   height: "80%",
                   textAlign: "center",
-                  fontSize: 80,
+                  fontSize: 70,
                   fontFamily: "Poppins-Bold",
                   color: COLORS.primary,
-                  borderRadius: 10,
+                  // borderRadius: 10,
+                  backgroundColor: "white",
                 }}
                 maxLength={2}
                 placeholderTextColor={COLORS.primary}
@@ -610,10 +574,11 @@ const TambahAlarm = () => {
                   width: "80%",
                   height: "80%",
                   textAlign: "center",
-                  fontSize: 80,
+                  fontSize: 70,
                   fontFamily: "Poppins-Bold",
                   color: COLORS.primary,
-                  borderRadius: 10,
+                  // borderRadius: 10,
+                  backgroundColor: "white",
                 }}
                 onChangeText={(value) => onChangeMenit(value)}
                 maxLength={2}
@@ -906,12 +871,40 @@ const TambahAlarm = () => {
 
               // jika salah satu kosong
               else if (
-                fase == null ||
                 hari == null ||
                 lamaPengobatan == null ||
                 hours == null ||
                 minutes == null ||
-                hariAlarm.length == 0
+                (hariAlarm.length == 0 && fase == null)
+              ) {
+                ToastAndroid.show(
+                  "salah satu data kosong!",
+                  ToastAndroid.SHORT
+                );
+
+                // jika data lengkap
+              }
+
+              // jika salah satu kosong
+              else if (
+                hari == null ||
+                lamaPengobatan == null ||
+                hours == null ||
+                minutes == null ||
+                (hariAlarm.length == 0 && fase == 3)
+              ) {
+                ToastAndroid.show(
+                  "salah satu data kosong!",
+                  ToastAndroid.SHORT
+                );
+
+                //   // jika data lengkap
+              } else if (
+                hari == null ||
+                lamaPengobatan == null ||
+                hours == null ||
+                minutes == null ||
+                (hariAlarm.length == 0 && fase == 2)
               ) {
                 ToastAndroid.show(
                   "salah satu data kosong!",
@@ -932,6 +925,11 @@ const TambahAlarm = () => {
                   // buat alarm
                   addInsentif(hours, minutes, lamaPengobatan, hari, jam, fase);
                   navigation.navigate("AlarmScreen");
+
+                  // ToastAndroid.show(
+                  //   "INTENSIF BERHASIL NROOO",
+                  //   ToastAndroid.SHORT
+                  // );
                 } else if (fase == 2) {
                   // "fase dua, hari sudah dipilih!",
                   // buat alarm
@@ -949,14 +947,14 @@ const TambahAlarm = () => {
                   );
                   navigation.navigate("AlarmScreen");
 
-                  // ToastAndroid.show("berhasil", ToastAndroid.SHORT);
+                  // ToastAndroid.show(
+                  //   "LANJUTAN BERHASIL BROOO!",
+                  //   ToastAndroid.SHORT
+                  // );
                 } else if (fase == 3 && hariAlarm.length < 3) {
                   // "fase tiga, hari kurang!",
                   // jgn buat alarm
-                  ToastAndroid.show(
-                    "Mohon lengkapi data pada form!",
-                    ToastAndroid.SHORT
-                  );
+                  ToastAndroid.show("Pilih 3 hari", ToastAndroid.SHORT);
                 } else if (fase == 3 && hariAlarm.length == 3) {
                   // "fase tiga, hari lengkap!",
                   //buat alarm
@@ -973,6 +971,11 @@ const TambahAlarm = () => {
                     tiga
                   );
                   navigation.navigate("AlarmScreen");
+
+                  // ToastAndroid.show(
+                  //   "Extend Berhasil BROOO!",
+                  //   ToastAndroid.SHORT
+                  // );
                 }
               }
             } catch (error) {

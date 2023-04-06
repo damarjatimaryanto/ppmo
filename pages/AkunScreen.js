@@ -589,7 +589,7 @@ const AkunScreen = () => {
                   style={{
                     color: "black",
                     fontFamily: "Poppins-Medium",
-                    fontSize: 30,
+                    fontSize: 20,
                   }}
                 >
                   {pInsentif}%
@@ -604,7 +604,7 @@ const AkunScreen = () => {
                   style={{
                     color: "black",
                     fontFamily: "Poppins-Medium",
-                    fontSize: 30,
+                    fontSize: 20,
                   }}
                 >
                   {pLanjutan}%
@@ -619,7 +619,7 @@ const AkunScreen = () => {
                   style={{
                     color: "black",
                     fontFamily: "Poppins-Medium",
-                    fontSize: 30,
+                    fontSize: 20,
                   }}
                 >
                   {pExtend}%
@@ -657,7 +657,22 @@ const AkunScreen = () => {
               </ImageBackground>
             </View>
           </View> */}
-
+          <View style={styles.box}>
+            <View style={{ flexDirection: "row", width: "100%" }}>
+              <View style={styles.box_image}>
+                <Image
+                  style={styles.img_style}
+                  source={require("../assets/icon/system-update.png")}
+                />
+              </View>
+              <View style={styles.judul_style}>
+                <Text style={styles.judul_isi}>Version</Text>
+              </View>
+              <View style={styles.ket_style}>
+                <Text style={styles.ket_isi}>1.0.1</Text>
+              </View>
+            </View>
+          </View>
           <View style={styles.box_keluar}>
             <TouchableOpacity
               onPress={() => {
@@ -822,7 +837,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   judul_isi: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: "Poppins-Regular",
     color: "grey",
   },
@@ -834,7 +849,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   ket_isi: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: "Poppins-Regular",
     textAlign: "right",
     color: COLORS.primary,
@@ -877,6 +892,7 @@ const styles = StyleSheet.create({
     // borderBottomLeftRadius: 15,
     // borderBottomRightRadius: 15,
     borderRadius: 5,
+    fontSize: 12,
 
     // borderColor: "#ddd",
     // borderBottomWidth: 0,

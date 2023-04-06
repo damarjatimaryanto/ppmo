@@ -23,7 +23,7 @@ const SplashScreen = () => {
     PushNotification.configure({
       onNotification: function (notification) {
         if (notification.userInteraction) {
-          navigation.navigate("Konfirmasi");
+          navigation.navigate("AlarmScreen");
           // Handle notification click
         }
       },
@@ -31,7 +31,7 @@ const SplashScreen = () => {
       onAction: function (notification) {
         // console.log("asd");
         if (notification.userInteraction) {
-          navigation.navigate("Konfirmasi");
+          navigation.navigate("AlarmScreen");
           // Handle notification click
         }
       },

@@ -153,15 +153,40 @@ const Konfirmasi = () => {
       .then((resp) => {
         // setLoading(true);
         // setTimeout(() => {
-        if (resp == "1") {
-          // setLoading(false);
-          ToastAndroid.show("Konfirmasi Berhasil!", ToastAndroid.SHORT);
-          navigation.navigate("AlarmScreen");
-        } else {
-          // setLoading(false);
-          ToastAndroid.show("Konfirmasi Gagal!", ToastAndroid.SHORT);
-        }
+        // if (resp == "1") {
+        //   // setLoading(false);
+        //   ToastAndroid.show("Konfirmasi Berhasil!", ToastAndroid.SHORT);
+        //   navigation.navigate("AlarmScreen");
+        // } else {
+        //   // setLoading(false);
+        //   ToastAndroid.show("Konfirmasi Gagal!", ToastAndroid.SHORT);
+        // }
         // }, 500);
+
+        setTimeout(() => {
+          if (resp == "1") {
+            Alert.alert("", "Konfirmasi Berhasil", [
+              {
+                text: "OK",
+                onPress: () => {
+                  navigation.reset({
+                    routes: [
+                      {
+                        name: "AlarmScreen",
+                      },
+                    ],
+                  });
+                },
+              },
+            ]);
+          } else {
+            Alert.alert("", "Konfirmasi Gagal", [
+              {
+                text: "OK",
+              },
+            ]);
+          }
+        }, 500);
       });
   };
 
@@ -206,7 +231,7 @@ const Konfirmasi = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={COLORS.white} />
 
-      {loading == true && (
+      {/* {loading == true && (
         // <Modal animationType="fade" transparent={true} visible={loading}>
         <View
           style={{
@@ -232,7 +257,7 @@ const Konfirmasi = () => {
           <Text style={{ fontFamily: "Poppins-Regular" }}>Loading</Text>
         </View>
         // </Modal>
-      )}
+      )} */}
 
       {/* <View
         style={{
@@ -437,7 +462,7 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
   },
   judul_isi: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: "Poppins-Regular",
     color: "grey",
   },
@@ -447,7 +472,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   ket_isi: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: "Poppins-Regular",
     textAlign: "left",
     color: COLORS.primary,
