@@ -133,6 +133,12 @@ const AlarmScreen = () => {
   //     console.log("ScheduledLocalNotifications: ", data);
   //   });
   // };
+
+  useEffect(()=>{
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  },[])
   useFocusEffect(
     React.useCallback(() => {
       setLoading(true);
