@@ -274,9 +274,9 @@ const TrackScreen = () => {
             // textDayFontWeight: "300",
             // textMonthFontWeight: "bold",
             // textDayHeaderFontWeight: "300",
-            textDayFontSize: 16,
-            textMonthFontSize: 16,
-            textDayHeaderFontSize: 14,
+            textDayFontSize: 10,
+            textMonthFontSize: 10,
+            textDayHeaderFontSize: 10,
           }}
           markingType={"period"}
           markedDates={markedDate}
@@ -373,7 +373,7 @@ const TrackScreen = () => {
               alignItems: "center",
             }}
           >
-            <Text style={{ fontFamily: "Poppins-Regular", fontSize: 16 }}>
+            <Text style={{ fontFamily: "Poppins-Regular", fontSize: 12 }}>
               Data Tidak Ada
             </Text>
           </View>
@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
   },
   judul_isi: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: "Poppins-Regular",
     color: "grey",
   },
@@ -459,7 +459,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
   },
   ket_isi: {
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: "Poppins-Regular",
     textAlign: "left",
     color: COLORS.primary,
