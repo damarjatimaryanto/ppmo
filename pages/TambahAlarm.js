@@ -508,7 +508,7 @@ const TambahAlarm = () => {
             alignItems: "center",
           }}
         >
-          <View style={{ width: "40%", backgroundColor: "yellow" }}>
+          <View style={{ width: "40%" }}>
             <Text
               style={{
                 fontFamily: "Poppins-SemiBold",
@@ -518,22 +518,7 @@ const TambahAlarm = () => {
             >
               Jam
             </Text>
-            <View
-              style={{
-                // backgroundColor: "grey",
-                width: "100%",
-                height: 150,
-                borderRadius: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                // shadowColor: "#000",
-                // shadowOffset: { width: 0, height: 2 },
-                // shadowOpacity: 0.25,
-                // shadowRadius: 3.84,
-                // elevation: 3,
-                // paddingTop: 10,
-              }}
-            >
+            <View style={styles.alarm_set_style}>
               <TextInput
                 style={{
                   width: "80%",
